@@ -1,0 +1,383 @@
+player,player_url,year,contract_trigger,age,base_salary,roster_bonus,guaranteed_salary,cap_number,cap_pct,prorated_bonus_signing,prorated_bonus_option,per_game_roster_bonus,workout_bonus,other_bonus,is_void_year,void_columns,is_projected
+Aaron Rodgers,https://overthecap.com/player/aaron-rodgers/1085/,2026,August 7 : Roster bonus due,43,22000000.0,500000.0,22000000.0,22500000.0,7.0,,,,,,False,,False
+Adrian Martinez,https://overthecap.com/player/adrian-martinez/11480/,2026,,26,247500.0,,,137500.0,0.0,,,,,,False,,False
+Aidan O'Connell,https://overthecap.com/player/aidan-oconnell/10959/,2023,,25,750000.0,,,877345.0,0.4,127345.0,,,,,False,,False
+Aidan O'Connell,https://overthecap.com/player/aidan-oconnell/10959/,2024,,26,915000.0,,,925678.0,0.4,127345.0,,,,,False,,False
+Aidan O'Connell,https://overthecap.com/player/aidan-oconnell/10959/,2025,,27,1030000.0,,,1157345.0,0.4,127345.0,,,,,False,,False
+Aidan O'Connell,https://overthecap.com/player/aidan-oconnell/10959/,2026,,28,3674000.0,,,3801345.0,1.2,127345.0,,,,,False,,False
+Andy Dalton,https://overthecap.com/player/andy-dalton/160/,2026,,39,1300000.0,,,866667.0,0.3,,,,,,False,,False
+Anthony Richardson,https://overthecap.com/player/anthony-richardson/10828/,2023,,21,750000.0,0.0,750000.0,6180733.0,2.7,5430733.0,,,,,False,,False
+Anthony Richardson,https://overthecap.com/player/anthony-richardson/10828/,2024,August 1 : Roster Bonus Due,22,915000.0,1380183.0,2295183.0,7725916.0,3.0,5430733.0,,,,,False,,False
+Anthony Richardson,https://overthecap.com/player/anthony-richardson/10828/,2025,August 1 : Roster Bonus Due,23,1030000.0,2810336.0,3840366.0,9271099.0,3.2,5430733.0,,,,,False,,False
+Anthony Richardson,https://overthecap.com/player/anthony-richardson/10828/,2026,August 1 : Roster Bonus Due,24,1145000.0,4240549.0,5385549.0,10816282.0,3.6,5430733.0,,,,,False,,False
+Athan Kaliakmanis,https://overthecap.com/player/athan-kaliakmanis/13367/,2026,,23,885000.0,,,926164.0,0.3,41164.0,,,,,False,,False
+Athan Kaliakmanis,https://overthecap.com/player/athan-kaliakmanis/13367/,2027,,24,1050000.0,,,1091164.0,0.3,41164.0,,,,,False,,True
+Athan Kaliakmanis,https://overthecap.com/player/athan-kaliakmanis/13367/,2028,,25,1165000.0,,,1206164.0,0.3,41164.0,,,,,False,,True
+Athan Kaliakmanis,https://overthecap.com/player/athan-kaliakmanis/13367/,2029,,26,1280000.0,,,1321164.0,,41164.0,,,,,False,,True
+Baker Mayfield,https://overthecap.com/player/baker-mayfield/6886/,2026,,31,1300000.0,35700000.0,18300000.0,34015000.0,10.7,15715000.0,,,,,False,,False
+Baker Mayfield,https://overthecap.com/player/baker-mayfield/6886/,2027,March 15 : $20 million 2028 roster bonus is fully guaranteed,32,1350000.0,48650000.0,50000000.0,65715000.0,20.1,15715000.0,,,,,False,,True
+Baker Mayfield,https://overthecap.com/player/baker-mayfield/6886/,2028,March 15 : $30 million base salary is fully guaranteed,33,30000000.0,20000000.0,0.0,65715000.0,18.7,15715000.0,,,,,False,,True
+Baker Mayfield,https://overthecap.com/player/baker-mayfield/6886/,2029,March 15 : Roster bonus due,34,52500000.0,2500000.0,0.0,64940000.0,,9940000.0,,,,,False,,True
+Baker Mayfield,https://overthecap.com/player/baker-mayfield/6886/,2030,February 18 : Contract voids,35,,,,3740000.0,,3740000.0,,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Behren Morton,https://overthecap.com/player/behren-morton/13378/,2026,,24,885000.0,,,922307.0,0.3,37307.0,,,,,False,,False
+Behren Morton,https://overthecap.com/player/behren-morton/13378/,2027,,25,1050000.0,,,1087307.0,0.3,37307.0,,,,,False,,True
+Behren Morton,https://overthecap.com/player/behren-morton/13378/,2028,,26,1165000.0,,,1202307.0,0.3,37307.0,,,,,False,,True
+Behren Morton,https://overthecap.com/player/behren-morton/13378/,2029,,27,1280000.0,,,1317307.0,,37307.0,,,,,False,,True
+Bo Nix,https://overthecap.com/player/bo-nix/11620/,2024,,24,795000.0,0.0,795000.0,3384212.0,1.3,2589212.0,,,,,False,,False
+Bo Nix,https://overthecap.com/player/bo-nix/11620/,2025,,25,960000.0,681053.0,1641053.0,4230265.0,1.5,2589212.0,,,,,False,,False
+Bo Nix,https://overthecap.com/player/bo-nix/11620/,2026,,26,1075000.0,1412106.0,2487106.0,5076318.0,1.7,2589212.0,,,,,False,,False
+Bo Nix,https://overthecap.com/player/bo-nix/11620/,2027,,27,1190000.0,2143159.0,3333159.0,5922371.0,1.8,2589212.0,,,,,False,,True
+Brady Cook,https://overthecap.com/player/brady-cook/12669/,2026,,25,247500.0,,,220833.0,0.1,,,,,,False,,False
+Brock Purdy,https://overthecap.com/player/brock-purdy/10307/,2025,,26,1100000.0,,1100000.0,9119253.0,2.7,8019253.0,0.0,0.0,0.0,,False,,False
+Brock Purdy,https://overthecap.com/player/brock-purdy/10307/,2026,April 1 : Remainder of 2027 salary is guaranteed,27,8296000.0,,46996000.0,23709530.0,7.0,7313530.0,7550000.0,850000.0,100000.0,,False,,False
+Brock Purdy,https://overthecap.com/player/brock-purdy/10307/,2027,April 1 : 2028 salary is guaranteed,28,11300000.0,,11904000.0,30113530.0,9.2,7313530.0,10550000.0,850000.0,100000.0,,False,,True
+Brock Purdy,https://overthecap.com/player/brock-purdy/10307/,2028,April 1 : $7.154 million of 2029 salary is guaranteed,29,34100000.0,,0.0,56913530.0,16.2,7313530.0,14550000.0,850000.0,100000.0,,False,,True
+Brock Purdy,https://overthecap.com/player/brock-purdy/10307/,2029,April 1 : $5 million of salary is guaranteed,30,49000000.0,,0.0,71813530.0,,7313530.0,14550000.0,850000.0,100000.0,,False,,True
+Brock Purdy,https://overthecap.com/player/brock-purdy/10307/,2030,,31,49050000.0,,0.0,64550000.0,,0.0,14550000.0,850000.0,100000.0,,False,,True
+Brock Purdy,https://overthecap.com/player/brock-purdy/10307/,2031,February 10 : Contract voids on the 5th day waiver period,32,,,,11000000.0,,0.0,7000000.0,,,,True,base_salary;guaranteed_salary;per_game_roster_bonus;workout_bonus,True
+Brock Purdy,https://overthecap.com/player/brock-purdy/10307/,2032,,33,,,,0.0,,0.0,4000000.0,,,,True,base_salary;guaranteed_salary;per_game_roster_bonus;workout_bonus,True
+Brock Purdy,https://overthecap.com/player/brock-purdy/10307/,2033,,34,,,,0.0,,0.0,0.0,,,,True,base_salary;guaranteed_salary;per_game_roster_bonus;workout_bonus,True
+Brock Purdy,https://overthecap.com/player/brock-purdy/10307/,2034,,35,,,,0.0,,0.0,0.0,,,,True,base_salary;guaranteed_salary;per_game_roster_bonus;workout_bonus,True
+Bryce Young,https://overthecap.com/player/bryce-young/10825/,2023,,22,750000.0,0.0,750000.0,6900922.0,2.9,6150922.0,,,,,False,,False
+Bryce Young,https://overthecap.com/player/bryce-young/10825/,2024,August 1 : Guaranteed roster bonus due,23,915000.0,1560231.0,2475231.0,8626153.0,3.3,6150922.0,,,,,False,,False
+Bryce Young,https://overthecap.com/player/bryce-young/10825/,2025,August 1 : Guaranteed roster bonus due,24,1030000.0,3170462.0,4200462.0,10351384.0,3.7,6150922.0,,,,,False,,False
+Bryce Young,https://overthecap.com/player/bryce-young/10825/,2026,August 1 : Guaranteed roster bonus due,25,1145000.0,4780693.0,5925693.0,12076615.0,3.9,6150922.0,,,,,False,,False
+Bryce Young,https://overthecap.com/player/bryce-young/10825/,2027,,26,25904000.0,0.0,25904000.0,25904000.0,7.9,0.0,,,,,False,,True
+C.J. Stroud,https://overthecap.com/player/c-j-stroud/10826/,2023,,22,750000.0,0.0,750000.0,6596226.0,2.9,5846226.0,,,,,False,,False
+C.J. Stroud,https://overthecap.com/player/c-j-stroud/10826/,2024,August 1 : Roster Bonus due,23,915000.0,1484057.0,2399057.0,8245283.0,3.2,5846226.0,,,,,False,,False
+C.J. Stroud,https://overthecap.com/player/c-j-stroud/10826/,2025,August 1 : Roster Bonus due,24,1030000.0,3018113.0,4048114.0,9894339.0,3.4,5846226.0,,,,,False,,False
+C.J. Stroud,https://overthecap.com/player/c-j-stroud/10826/,2026,August 1 : Roster Bonus due,25,1145000.0,4552170.0,5697171.0,11543396.0,3.7,5846226.0,,,,,False,,False
+C.J. Stroud,https://overthecap.com/player/c-j-stroud/10826/,2027,,26,25904000.0,0.0,25904000.0,25904000.0,7.9,0.0,,,,,False,,True
+Cade Klubnik,https://overthecap.com/player/cade-klubnik/13254/,2026,,23,885000.0,,,1189669.0,0.4,304669.0,,,,,False,,False
+Cade Klubnik,https://overthecap.com/player/cade-klubnik/13254/,2027,,24,1050000.0,,,1354669.0,0.4,304669.0,,,,,False,,True
+Cade Klubnik,https://overthecap.com/player/cade-klubnik/13254/,2028,,25,1165000.0,,,1469669.0,0.4,304669.0,,,,,False,,True
+Cade Klubnik,https://overthecap.com/player/cade-klubnik/13254/,2029,,26,1280000.0,,,1584669.0,,304669.0,,,,,False,,True
+Caleb Williams,https://overthecap.com/player/caleb-williams/11609/,2024,,23,795000.0,0.0,795000.0,7179283.0,2.8,6384283.0,,,,,False,,False
+Caleb Williams,https://overthecap.com/player/caleb-williams/11609/,2025,,24,960000.0,1629821.0,2589821.0,8974104.0,3.2,6384283.0,,,,,False,,False
+Caleb Williams,https://overthecap.com/player/caleb-williams/11609/,2026,,25,1075000.0,3309642.0,4384642.0,10768925.0,3.5,6384283.0,,,,,False,,False
+Caleb Williams,https://overthecap.com/player/caleb-williams/11609/,2027,,26,1190000.0,4989643.0,6179463.0,12563746.0,3.8,6384283.0,,,,,False,,True
+Cam Miller,https://overthecap.com/player/cam-miller/12575/,2026,,25,247500.0,,,137500.0,0.0,,,,,,False,,False
+Cam Ward,https://overthecap.com/player/cam-ward/12361/,2025,,23,840000.0,0.0,840000.0,8879928.0,3.0,8039928.0,,,,,False,,False
+Cam Ward,https://overthecap.com/player/cam-ward/12361/,2026,August 1 : Roster bonus due on 5th day of training camp,24,1005000.0,2054982.0,3059982.0,11099910.0,3.2,8039928.0,,,,,False,,False
+Cam Ward,https://overthecap.com/player/cam-ward/12361/,2027,August 1 : Roster bonus due on 5th day of training camp,25,1120000.0,4159964.0,5279964.0,13319892.0,4.1,8039928.0,,,,,False,,True
+Cam Ward,https://overthecap.com/player/cam-ward/12361/,2028,August 1 : Roster bonus due on 5th day of training camp,26,1235000.0,6264946.0,7499946.0,15539874.0,4.4,8039928.0,,,,,False,,True
+Carson Beck,https://overthecap.com/player/carson-beck/13209/,2026,,25,885000.0,0.0,,1346544.0,0.4,461544.0,,,0.0,,False,,False
+Carson Beck,https://overthecap.com/player/carson-beck/13209/,2027,,26,1050000.0,71636.0,,1683180.0,0.5,461544.0,,,100000.0,,False,,True
+Carson Beck,https://overthecap.com/player/carson-beck/13209/,2028,,27,1165000.0,293272.0,,2019816.0,0.6,461544.0,,,100000.0,,False,,True
+Carson Beck,https://overthecap.com/player/carson-beck/13209/,2029,,28,1280000.0,514908.0,,2356452.0,,461544.0,,,100000.0,,False,,True
+Carson Wentz,https://overthecap.com/player/carson-wentz/4715/,2026,,34,1545000.0,,1545000.0,3050000.0,1.0,1100000.0,,255000.0,100000.0,200000.0,False,,False
+Case Keenum,https://overthecap.com/player/case-keenum/1651/,2026,,38,1300000.0,0.0,1300000.0,2200000.0,0.7,800000.0,,,100000.0,,False,,False
+Case Keenum,https://overthecap.com/player/case-keenum/1651/,2027,March 16 : Roster bonus due,39,1650000.0,750000.0,0.0,3300000.0,1.0,800000.0,,,100000.0,,False,,True
+Cole Payton,https://overthecap.com/player/cole-payton/13322/,2026,,24,885000.0,,,979869.0,0.3,94869.0,,,,,False,,False
+Cole Payton,https://overthecap.com/player/cole-payton/13322/,2027,,25,1050000.0,,,1144869.0,0.4,94869.0,,,,,False,,True
+Cole Payton,https://overthecap.com/player/cole-payton/13322/,2028,,26,1165000.0,,,1259869.0,0.4,94869.0,,,,,False,,True
+Cole Payton,https://overthecap.com/player/cole-payton/13322/,2029,,27,1280000.0,,,1374869.0,,94869.0,,,,,False,,True
+DJ Uiagalelei,https://overthecap.com/player/dj-uiagalelei/12875/,2026,,25,885000.0,,,786667.0,0.3,,,,,,False,,False
+Dak Prescott,https://overthecap.com/player/dak-prescott/4848/,2024,,31,1250000.0,,2791667.0,44615980.0,17.2,41824313.0,,,,,False,,False
+Dak Prescott,https://overthecap.com/player/dak-prescott/4848/,2025,March 17 : 2026 salary becomes guaranteed,32,2000000.0,,2000000.0,50518430.0,16.5,48518430.0,,,,,False,,False
+Dak Prescott,https://overthecap.com/player/dak-prescott/4848/,2026,March 15 : 2027 salary becomes guaranteed,33,1800000.0,,1800000.0,43508430.0,13.1,41708430.0,,,,,False,,False
+Dak Prescott,https://overthecap.com/player/dak-prescott/4848/,2027,March 18 : 2028 injury guarantee becomes guaranteed,34,45000000.0,,45000000.0,76025783.0,23.2,31025783.0,,,,,False,,True
+Dak Prescott,https://overthecap.com/player/dak-prescott/4848/,2028,,35,55000000.0,,0.0,86025786.0,24.4,31025786.0,,,,,False,,True
+Dak Prescott,https://overthecap.com/player/dak-prescott/4848/,2029,March 15 : Deadline for release or renegotiation,36,,,,18225000.0,,16790000.0,,,,,True,base_salary;guaranteed_salary,True
+Dak Prescott,https://overthecap.com/player/dak-prescott/4848/,2030,,37,,,,7640000.0,,7640000.0,,,,,True,base_salary;guaranteed_salary,True
+Dak Prescott,https://overthecap.com/player/dak-prescott/4848/,2031,February 18 : Contract voids,38,,,,0.0,,0.0,,,,,True,base_salary;guaranteed_salary,True
+Dak Prescott,https://overthecap.com/player/dak-prescott/4848/,2032,,39,,,,0.0,,0.0,,,,,True,base_salary;guaranteed_salary,True
+Davis Mills,https://overthecap.com/player/davis-mills/9531/,2025,,27,1200000.0,,1200000.0,4058000.0,1.4,2808000.0,,0.0,,50000.0,False,,False
+Davis Mills,https://overthecap.com/player/davis-mills/9531/,2026,,28,2278333.0,,2278333.0,5147666.0,1.7,2419333.0,,300000.0,,150000.0,False,,False
+Davis Mills,https://overthecap.com/player/davis-mills/9531/,2027,February 16 : Contract voids,29,,,,2977334.0,0.9,744333.0,,,,,True,base_salary;guaranteed_salary;per_game_roster_bonus;other_bonus,True
+Davis Mills,https://overthecap.com/player/davis-mills/9531/,2028,,30,,,,0.0,0.0,744333.0,,,,,True,base_salary;guaranteed_salary;per_game_roster_bonus;other_bonus,True
+Davis Mills,https://overthecap.com/player/davis-mills/9531/,2029,,31,,,,0.0,,744333.0,,,,,True,base_salary;guaranteed_salary;per_game_roster_bonus;other_bonus,True
+Davis Mills,https://overthecap.com/player/davis-mills/9531/,2030,,32,,,,0.0,,744335.0,,,,,True,base_salary;guaranteed_salary;per_game_roster_bonus;other_bonus,True
+Deshaun Watson,https://overthecap.com/player/deshaun-watson/5596/,2022,,27,1035000.0,,402500.0,9395500.0,4.3,8993000.0,,,,,False,,False
+Deshaun Watson,https://overthecap.com/player/deshaun-watson/5596/,2023,,28,1080000.0,,1080000.0,19057000.0,7.6,17977000.0,,,,,False,,False
+Deshaun Watson,https://overthecap.com/player/deshaun-watson/5596/,2024,,29,1210000.0,,1210000.0,27942678.0,9.6,26732678.0,,,,,False,,False
+Deshaun Watson,https://overthecap.com/player/deshaun-watson/5596/,2025,,30,1255000.0,,1255000.0,35971514.0,11.1,34716514.0,,,,,False,,False
+Deshaun Watson,https://overthecap.com/player/deshaun-watson/5596/,2026,,31,1300000.0,,1300000.0,40959128.0,12.1,39659128.0,,,,,False,,False
+Deshaun Watson,https://overthecap.com/player/deshaun-watson/5596/,2027,March 12 : Deadline to terminate contract,32,,,,36008514.0,11.0,34663514.0,,,,,True,base_salary;guaranteed_salary,True
+Deshaun Watson,https://overthecap.com/player/deshaun-watson/5596/,2028,,33,,,,51543350.0,14.6,25679514.0,,,,,True,base_salary;guaranteed_salary,True
+Deshaun Watson,https://overthecap.com/player/deshaun-watson/5596/,2029,February 18 : Contract voids 5th day after SB,34,,,,0.0,,16923836.0,,,,,True,base_salary;guaranteed_salary,True
+Deshaun Watson,https://overthecap.com/player/deshaun-watson/5596/,2030,,35,,,,0.0,,8940000.0,,,,,True,base_salary;guaranteed_salary,True
+Dillon Gabriel,https://overthecap.com/player/dillon-gabriel/12454/,2025,,25,840000.0,0.0,,1132058.0,0.3,292058.0,,,,,False,,False
+Dillon Gabriel,https://overthecap.com/player/dillon-gabriel/12454/,2026,August 1 : Roster bonus due on the 3rd day of training camp,26,1005000.0,118015.0,,1415073.0,0.4,292058.0,,,,,False,,False
+Dillon Gabriel,https://overthecap.com/player/dillon-gabriel/12454/,2027,August 1 : Roster bonus due on the 3rd day of training camp,27,1120000.0,286030.0,,1698088.0,0.5,292058.0,,,,,False,,True
+Dillon Gabriel,https://overthecap.com/player/dillon-gabriel/12454/,2028,,28,1689045.0,0.0,,1981103.0,0.6,292058.0,,,,,False,,True
+Drake Maye,https://overthecap.com/player/drake-maye/11611/,2024,,22,795000.0,0.0,795000.0,6661775.0,2.5,5866775.0,,,,,False,,False
+Drake Maye,https://overthecap.com/player/drake-maye/11611/,2025,August 1 : Roster bonus due 3rd day of training camp,23,960000.0,1500444.0,2460444.0,8327219.0,2.6,5866775.0,,,,,False,,False
+Drake Maye,https://overthecap.com/player/drake-maye/11611/,2026,August 1 : Roster bonus due 3rd day of training camp,24,1075000.0,3050888.0,4125888.0,9992663.0,2.8,5866775.0,,,,,False,,False
+Drake Maye,https://overthecap.com/player/drake-maye/11611/,2027,August 1 : Roster bonus due 3rd day of training camp,25,1190000.0,3601332.0,5791332.0,11658107.0,3.6,5866775.0,,,,,False,,True
+Drew Allar,https://overthecap.com/player/drew-allar/13220/,2026,,22,885000.0,0.0,,1291529.0,0.4,406529.0,,,0.0,,False,,False
+Drew Allar,https://overthecap.com/player/drew-allar/13220/,2027,,23,1050000.0,92882.0,,1614411.0,0.5,406529.0,,,65000.0,,False,,True
+Drew Allar,https://overthecap.com/player/drew-allar/13220/,2028,,24,1165000.0,300764.0,,1937293.0,0.6,406529.0,,,65000.0,,False,,True
+Drew Allar,https://overthecap.com/player/drew-allar/13220/,2029,,25,1280000.0,508646.0,,2260175.0,,406529.0,,,65000.0,,False,,True
+Drew Lock,https://overthecap.com/player/drew-lock/7833/,2025,,29,1750000.0,,1250000.0,2250000.0,0.8,500000.0,,,,,False,,False
+Drew Lock,https://overthecap.com/player/drew-lock/7833/,2026,,30,2250000.0,,0.0,2750000.0,0.9,500000.0,,,,,False,,False
+Easton Stick,https://overthecap.com/player/easton-stick/7957/,2026,,31,411300.0,,,521916.0,0.2,,,,,,False,,False
+Feleipe Franks,https://overthecap.com/player/feleipe-franks/9915/,2026,,29,1215000.0,50000.0,,1125000.0,0.4,,,,,,False,,False
+Fernando Mendoza,https://overthecap.com/player/fernando-mendoza/13145/,2026,,23,885000.0,0.0,885000.0,10412836.0,3.3,9527836.0,,,,,False,,False
+Fernando Mendoza,https://overthecap.com/player/fernando-mendoza/13145/,2027,August 1 : Roster bonus due,24,1050000.0,2438209.0,3488209.0,13016045.0,4.0,9527836.0,,,,,False,,True
+Fernando Mendoza,https://overthecap.com/player/fernando-mendoza/13145/,2028,August 1 : Roster bonus due,25,1165000.0,4926418.0,6091418.0,15619254.0,4.4,9527836.0,,,,,False,,True
+Fernando Mendoza,https://overthecap.com/player/fernando-mendoza/13145/,2029,August 1 : Roster bonus due,26,1280000.0,7414627.0,8694627.0,18222463.0,,9527836.0,,,,,False,,True
+Gardner Minshew,https://overthecap.com/player/gardner-minshew/7969/,2026,,30,2890000.0,,2890000.0,5690000.0,1.7,2250000.0,,510000.0,100000.0,,False,,False
+Garrett Greene,https://overthecap.com/player/garrett-greene/13064/,2026,,25,247500.0,,,247500.0,0.1,,,,,,False,,False
+Garrett Nussmeier,https://overthecap.com/player/garrett-nussmeier/13393/,2026,,24,885000.0,,,915122.0,0.3,30122.0,,,,,False,,False
+Garrett Nussmeier,https://overthecap.com/player/garrett-nussmeier/13393/,2027,,25,1050000.0,,,1080122.0,0.3,30122.0,,,,,False,,True
+Garrett Nussmeier,https://overthecap.com/player/garrett-nussmeier/13393/,2028,,26,1165000.0,,,1195122.0,0.3,30122.0,,,,,False,,True
+Garrett Nussmeier,https://overthecap.com/player/garrett-nussmeier/13393/,2029,,27,1280000.0,,,1310122.0,,30122.0,,,,,False,,True
+Geno Smith,https://overthecap.com/player/geno-smith/2249/,2026,,36,3300000.0,,3300000.0,3300000.0,1.0,,,,,,False,,False
+Graham Mertz,https://overthecap.com/player/graham-mertz/12557/,2025,,25,840000.0,,,897121.0,0.3,57121.0,,,,,False,,False
+Graham Mertz,https://overthecap.com/player/graham-mertz/12557/,2026,,26,1005000.0,,,597121.0,0.2,57121.0,,,,,False,,False
+Graham Mertz,https://overthecap.com/player/graham-mertz/12557/,2027,,27,1120000.0,,,1177121.0,0.4,57121.0,,,,,False,,True
+Graham Mertz,https://overthecap.com/player/graham-mertz/12557/,2028,,28,1235000.0,,,1292121.0,0.4,57121.0,,,,,False,,True
+Haynes King,https://overthecap.com/player/haynes-king/13741/,2026,,25,885000.0,,200000.0,888333.0,0.3,3333.0,,,,,False,,False
+Haynes King,https://overthecap.com/player/haynes-king/13741/,2027,,26,1050000.0,,0.0,1053333.0,0.3,3333.0,,,,,False,,True
+Haynes King,https://overthecap.com/player/haynes-king/13741/,2028,,27,1165000.0,,0.0,1168334.0,0.3,3334.0,,,,,False,,True
+Hendon Hooker,https://overthecap.com/player/hendon-hooker/10892/,2026,,28,247500.0,,,247500.0,0.1,,,,,,False,,False
+J.J. McCarthy,https://overthecap.com/player/j-j-mccarthy/11618/,2026,,23,1075000.0,0.0,895833.0,895833.0,0.3,,,,,,False,,False
+J.J. McCarthy,https://overthecap.com/player/j-j-mccarthy/11618/,2027,,24,1190000.0,2585200.0,3775200.0,3775200.0,1.2,,,,,,False,,True
+Jack Strand,https://overthecap.com/player/jack-strand/13739/,2026,,22,885000.0,,247500.0,890000.0,0.3,5000.0,,,,,False,,False
+Jack Strand,https://overthecap.com/player/jack-strand/13739/,2027,,23,1050000.0,,0.0,1055000.0,0.3,5000.0,,,,,False,,True
+Jack Strand,https://overthecap.com/player/jack-strand/13739/,2028,,24,1165000.0,,0.0,1170000.0,0.3,5000.0,,,,,False,,True
+Jacoby Brissett,https://overthecap.com/player/jacoby-brissett/4804/,2026,,34,4850000.0,,2425000.0,3850000.0,1.2,,,,,1425000.0,False,,False
+Jacoby Brissett,https://overthecap.com/player/jacoby-brissett/4804/,2027,March 11 : Contract voids,35,,,,0.0,0.0,,,,,,True,base_salary;guaranteed_salary;other_bonus,True
+Jacoby Brissett,https://overthecap.com/player/jacoby-brissett/4804/,2028,,36,,,,0.0,0.0,,,,,,True,base_salary;guaranteed_salary;other_bonus,True
+Jacoby Brissett,https://overthecap.com/player/jacoby-brissett/4804/,2029,,37,,,,0.0,,,,,,,True,base_salary;guaranteed_salary;other_bonus,True
+Jacoby Brissett,https://overthecap.com/player/jacoby-brissett/4804/,2030,,38,,,,0.0,,,,,,,True,base_salary;guaranteed_salary;other_bonus,True
+Jake Browning,https://overthecap.com/player/jake-browning/8189/,2026,,30,330300.0,,,238550.0,0.1,,,,,,False,,False
+Jake Haener,https://overthecap.com/player/jake-haener/10951/,2026,,27,247500.0,,,123750.0,0.0,,,,,,False,,False
+Jalen Hurts,https://overthecap.com/player/jalen-hurts/8793/,2023,,25,1010000.0,,1010000.0,6154286.0,2.6,5144286.0,0.0,,,,False,,False
+Jalen Hurts,https://overthecap.com/player/jalen-hurts/8793/,2024,March 18 : $16.5M of 2026 salary is guaranteed,26,1125000.0,,1125000.0,13558800.0,5.2,4658800.0,7775000.0,,,,False,,False
+Jalen Hurts,https://overthecap.com/player/jalen-hurts/8793/,2025,September 1 : Option due,27,1170000.0,,42000000.0,21869800.0,7.5,4658800.0,16041000.0,,,,False,,False
+Jalen Hurts,https://overthecap.com/player/jalen-hurts/8793/,2026,September 1 : Option due,28,1215000.0,,51500000.0,31971800.0,10.1,4658800.0,26098000.0,,,,False,,False
+Jalen Hurts,https://overthecap.com/player/jalen-hurts/8793/,2027,September 1 : Option due,29,1345000.0,,22000000.0,42132800.0,12.9,4658800.0,36129000.0,,,,False,,True
+Jalen Hurts,https://overthecap.com/player/jalen-hurts/8793/,2028,September 1 : Option due,30,1400000.0,,0.0,47541000.0,13.5,0.0,46151000.0,,,,False,,True
+Jalen Hurts,https://overthecap.com/player/jalen-hurts/8793/,2029,February 20 : Contract voids,31,,,,97553000.0,,0.0,38376000.0,,,,True,base_salary;guaranteed_salary,True
+Jalen Hurts,https://overthecap.com/player/jalen-hurts/8793/,2030,,32,,,,0.0,,0.0,30110000.0,,,,True,base_salary;guaranteed_salary,True
+Jalen Hurts,https://overthecap.com/player/jalen-hurts/8793/,2031,,33,,,,0.0,,0.0,20053000.0,,,,True,base_salary;guaranteed_salary,True
+Jalen Hurts,https://overthecap.com/player/jalen-hurts/8793/,2032,,34,,,,0.0,,0.0,10022000.0,,,,True,base_salary;guaranteed_salary,True
+Jalen Hurts,https://overthecap.com/player/jalen-hurts/8793/,2033,,35,,,,0.0,,0.0,0.0,,,,True,base_salary;guaranteed_salary,True
+Jalen Hurts,https://overthecap.com/player/jalen-hurts/8793/,2034,,36,,,,0.0,,0.0,0.0,,,,True,base_salary;guaranteed_salary,True
+Jalen Hurts,https://overthecap.com/player/jalen-hurts/8793/,2035,,37,,,,0.0,,0.0,0.0,,,,True,base_salary;guaranteed_salary,True
+Jalen Milroe,https://overthecap.com/player/jalen-milroe/12452/,2025,,23,840000.0,0.0,,1138925.0,0.4,298925.0,,,,,False,,False
+Jalen Milroe,https://overthecap.com/player/jalen-milroe/12452/,2026,,24,1005000.0,119731.0,,1423656.0,0.5,298925.0,,,,,False,,False
+Jalen Milroe,https://overthecap.com/player/jalen-milroe/12452/,2027,,25,1120000.0,289462.0,,1708387.0,0.5,298925.0,,,,,False,,True
+Jalen Milroe,https://overthecap.com/player/jalen-milroe/12452/,2028,,26,1235000.0,459193.0,,1993118.0,0.6,298925.0,,,,,False,,True
+Jalon Daniels,https://overthecap.com/player/jalon-daniels/13764/,2026,,24,885000.0,,247500.0,893333.0,0.3,8333.0,,,,,False,,False
+Jalon Daniels,https://overthecap.com/player/jalon-daniels/13764/,2027,,25,1050000.0,,0.0,1058333.0,0.3,8333.0,,,,,False,,True
+Jalon Daniels,https://overthecap.com/player/jalon-daniels/13764/,2028,,26,1165000.0,,0.0,1173334.0,0.3,8334.0,,,,,False,,True
+Jameis Winston,https://overthecap.com/player/jameis-winston/3849/,2026,,32,1300000.0,0.0,1300000.0,3516666.0,1.2,2166666.0,,,50000.0,,False,,False
+Jameis Winston,https://overthecap.com/player/jameis-winston/3849/,2027,,33,6050000.0,0.0,6050000.0,7316666.0,2.2,1166666.0,,,100000.0,,False,,True
+Jameis Winston,https://overthecap.com/player/jameis-winston/3849/,2028,May 15 : Roster bonus due,34,5650000.0,250000.0,1390000.0,7316668.0,2.1,1166668.0,,,100000.0,,False,,True
+Jared Goff,https://overthecap.com/player/jared-goff/4714/,2024,,30,2611832.0,5000000.0,7611832.0,27211832.0,10.6,19600000.0,,,0.0,,False,,False
+Jared Goff,https://overthecap.com/player/jared-goff/4714/,2025,March 17 : 2026 salary is fully guaranteed,31,18000000.0,0.0,18000000.0,32600000.0,10.7,14600000.0,,,0.0,,False,,False
+Jared Goff,https://overthecap.com/player/jared-goff/4714/,2026,March 15 : $18 million of 2027 salary is guaranteed,32,15000000.0,0.0,15000000.0,37600000.0,11.7,14600000.0,,,0.0,,False,,False
+Jared Goff,https://overthecap.com/player/jared-goff/4714/,2027,March 17 : $4 million is guaranteed,33,40000000.0,0.0,18000000.0,62600000.0,19.1,14600000.0,,,0.0,,False,,True
+Jared Goff,https://overthecap.com/player/jared-goff/4714/,2028,March 17 : $7 million roster bonus due,34,39000000.0,7000000.0,0.0,69600000.0,19.8,14600000.0,,,1000000.0,,False,,True
+Jared Goff,https://overthecap.com/player/jared-goff/4714/,2029,February 10 : Contract voids 5th day waiver period,35,,,,16000000.0,,0.0,,,,,True,base_salary;roster_bonus;guaranteed_salary;workout_bonus,True
+Jared Goff,https://overthecap.com/player/jared-goff/4714/,2030,,36,,,,0.0,,0.0,,,,,True,base_salary;roster_bonus;guaranteed_salary;workout_bonus,True
+Jarrett Stidham,https://overthecap.com/player/jarrett-stidham/7924/,2025,,29,1990000.0,,1990000.0,4000000.0,1.4,1500000.0,,510000.0,,,False,,False
+Jarrett Stidham,https://overthecap.com/player/jarrett-stidham/7924/,2026,,30,5990000.0,,2000000.0,8000000.0,2.6,1500000.0,,510000.0,,,False,,False
+Jaxson Dart,https://overthecap.com/player/jaxson-dart/12385/,2025,,22,840000.0,0.0,840000.0,3086898.0,1.1,2246898.0,,,,,False,,False
+Jaxson Dart,https://overthecap.com/player/jaxson-dart/12385/,2026,,23,1005000.0,606725.0,1611725.0,3858623.0,1.3,2246898.0,,,,,False,,False
+Jaxson Dart,https://overthecap.com/player/jaxson-dart/12385/,2027,,24,1120000.0,1263450.0,2383450.0,4630348.0,1.4,2246898.0,,,,,False,,True
+Jaxson Dart,https://overthecap.com/player/jaxson-dart/12385/,2028,,25,1235000.0,1920175.0,3155175.0,5402073.0,1.5,2246898.0,,,,,False,,True
+Jayden Daniels,https://overthecap.com/player/jayden-daniels/11610/,2024,,24,795000.0,0.0,795000.0,6863027.0,2.6,6068027.0,,,,,False,,False
+Jayden Daniels,https://overthecap.com/player/jayden-daniels/11610/,2025,,25,960000.0,1550757.0,2510757.0,8578784.0,2.9,6068027.0,,,,,False,,False
+Jayden Daniels,https://overthecap.com/player/jayden-daniels/11610/,2026,,26,1075000.0,3151514.0,4226514.0,10294541.0,3.1,6068027.0,,,,,False,,False
+Jayden Daniels,https://overthecap.com/player/jayden-daniels/11610/,2027,,27,1190000.0,4752271.0,5942271.0,12010298.0,3.7,6068027.0,,,,,False,,True
+Joe Burrow,https://overthecap.com/player/joe-burrow/8741/,2023,,27,1010000.0,4535018.0,5545018.0,19515043.0,8.6,13970025.0,0.0,,,,False,,False
+Joe Burrow,https://overthecap.com/player/joe-burrow/8741/,2024,,28,10714982.0,0.0,10714982.0,29551112.0,11.2,7836130.0,11000000.0,,,,False,,False
+Joe Burrow,https://overthecap.com/player/joe-burrow/8741/,2025,March 22 : Option due,29,25250000.0,0.0,25250000.0,45999784.0,16.0,7749784.0,13000000.0,,,,False,,False
+Joe Burrow,https://overthecap.com/player/joe-burrow/8741/,2026,March 20 : Option due,30,12250000.0,0.0,12250000.0,37599784.0,11.8,10349784.0,15000000.0,,,,False,,False
+Joe Burrow,https://overthecap.com/player/joe-burrow/8741/,2027,March 23 : Option due,31,27250000.0,0.0,18300000.0,54599784.0,16.7,10349784.0,17000000.0,,,,False,,True
+Joe Burrow,https://overthecap.com/player/joe-burrow/8741/,2028,March 23 : Option due,32,35500000.0,0.0,0.0,55849784.0,15.9,2600000.0,18000000.0,,,,False,,True
+Joe Burrow,https://overthecap.com/player/joe-burrow/8741/,2029,March 19 : Roster bonus due,33,48039018.0,2500000.0,0.0,60052672.0,,2600000.0,7000000.0,,,,False,,True
+Joe Burrow,https://overthecap.com/player/joe-burrow/8741/,2030,February 20 : Contract voids,34,,,,11600000.0,,2600000.0,5000000.0,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Joe Burrow,https://overthecap.com/player/joe-burrow/8741/,2031,,35,,,,0.0,,0.0,3000000.0,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Joe Burrow,https://overthecap.com/player/joe-burrow/8741/,2032,,36,,,,0.0,,0.0,1000000.0,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Joe Fagnano,https://overthecap.com/player/joe-fagnano/13459/,2026,,25,885000.0,,,885000.0,0.3,,,,,,False,,False
+Joe Fagnano,https://overthecap.com/player/joe-fagnano/13459/,2027,,26,1050000.0,,,1050000.0,0.3,,,,,,False,,True
+Joe Fagnano,https://overthecap.com/player/joe-fagnano/13459/,2028,,27,1165000.0,,,1165000.0,0.3,,,,,,False,,True
+Joe Flacco,https://overthecap.com/player/joe-flacco/1383/,2026,,41,1300000.0,,,3333333.0,1.1,1333333.0,,700000.0,,,False,,False
+Joe Flacco,https://overthecap.com/player/joe-flacco/1383/,2027,February 10 : Contract voids 5th day waiver period,42,,,,2666667.0,0.8,1333333.0,,,,,True,base_salary;per_game_roster_bonus,True
+Joe Flacco,https://overthecap.com/player/joe-flacco/1383/,2028,,43,,,,0.0,0.0,1333334.0,,,,,True,base_salary;per_game_roster_bonus,True
+Joe Milton III,https://overthecap.com/player/joe-milton-iii/11801/,2026,,26,1075000.0,,,776389.0,0.2,,,,,,False,,False
+Joey Aguilar,https://overthecap.com/player/joey-aguilar/13531/,2026,,25,885000.0,,,442500.0,0.1,,,,,,False,,False
+Jordan Love,https://overthecap.com/player/jordan-love/8766/,2024,,26,3500000.0,,3500000.0,20757731.0,7.8,16757731.0,0.0,0.0,500000.0,,False,,False
+Jordan Love,https://overthecap.com/player/jordan-love/8766/,2025,March 17 : 2026 $39.5 million injury guarantee becomes fully guaranteed,27,11900000.0,,11900000.0,29722437.0,10.0,16757731.0,0.0,600000.0,500000.0,,False,,False
+Jordan Love,https://overthecap.com/player/jordan-love/8766/,2026,March 15 : 2027 $20 million injury guarantee becomes fully guaranteed; option due,28,10400000.0,,49900000.0,36122437.0,11.5,16757731.0,7900000.0,600000.0,500000.0,,False,,False
+Jordan Love,https://overthecap.com/player/jordan-love/8766/,2027,March 18 : Option due,29,10400000.0,,20000000.0,44032731.0,13.5,16757731.0,15775000.0,600000.0,500000.0,,False,,True
+Jordan Love,https://overthecap.com/player/jordan-love/8766/,2028,,30,49300000.0,,0.0,75775000.0,21.5,16757731.0,15775000.0,600000.0,500000.0,,False,,True
+Jordan Love,https://overthecap.com/player/jordan-love/8766/,2029,February 18 : Contract voids,31,,,,31550000.0,,0.0,15775000.0,,,,True,base_salary;guaranteed_salary;per_game_roster_bonus;workout_bonus,True
+Jordan Love,https://overthecap.com/player/jordan-love/8766/,2030,,32,,,,0.0,,0.0,15775000.0,,,,True,base_salary;guaranteed_salary;per_game_roster_bonus;workout_bonus,True
+Josh Allen,https://overthecap.com/player/josh-allen/6892/,2025,,29,1255000.0,0.0,1255000.0,36335281.0,13.1,35080287.0,0.0,,0.0,,False,,False
+Josh Allen,https://overthecap.com/player/josh-allen/6892/,2026,March 15 : $18M of 2027 salary is guaranteed,30,1300000.0,0.0,1300000.0,44228000.0,14.7,34828000.0,7600000.0,,500000.0,,False,,False
+Josh Allen,https://overthecap.com/player/josh-allen/6892/,2027,March 17 : 2028 salary is guaranteed,31,14000000.0,0.0,52500000.0,56148000.0,17.2,26348000.0,15300000.0,,500000.0,,False,,True
+Josh Allen,https://overthecap.com/player/josh-allen/6892/,2028,March 17 : $14M of 2029 salary is guaranteed,32,18500000.0,0.0,0.0,62364000.0,17.7,21064000.0,22300000.0,,500000.0,,False,,True
+Josh Allen,https://overthecap.com/player/josh-allen/6892/,2029,March 17 : Roster bonus due,33,17000000.0,35000000.0,0.0,89189000.0,,14389000.0,22300000.0,,500000.0,,False,,True
+Josh Allen,https://overthecap.com/player/josh-allen/6892/,2030,March 17 : Roster bonus due,34,27000000.0,30000000.0,0.0,82840000.0,,3040000.0,22300000.0,,500000.0,,False,,True
+Josh Allen,https://overthecap.com/player/josh-allen/6892/,2031,February 20 : Contract voids,35,,,,21700000.0,,0.0,14700000.0,,,,True,base_salary;roster_bonus;guaranteed_salary;workout_bonus,True
+Josh Allen,https://overthecap.com/player/josh-allen/6892/,2032,,36,,,,0.0,,0.0,7000000.0,,,,True,base_salary;roster_bonus;guaranteed_salary;workout_bonus,True
+Josh Allen,https://overthecap.com/player/josh-allen/6892/,2033,,37,,,,0.0,,0.0,0.0,,,,True,base_salary;roster_bonus;guaranteed_salary;workout_bonus,True
+Josh Johnson,https://overthecap.com/player/josh-johnson/2131/,2026,,40,1300000.0,,,537500.0,0.2,,,,,,False,,False
+Joshua Dobbs,https://overthecap.com/player/joshua-dobbs/5721/,2026,,31,1300000.0,25000.0,375000.0,1200000.0,0.4,100000.0,,,,,False,,False
+Justin Fields,https://overthecap.com/player/justin-fields/9475/,2026,,27,3000000.0,,3000000.0,3000000.0,1.0,,,,,,False,,False
+Justin Fields,https://overthecap.com/player/justin-fields/9475/,2027,February 15 : Contract voids,28,,,,0.0,0.0,,,,,,True,base_salary;guaranteed_salary,True
+Justin Fields,https://overthecap.com/player/justin-fields/9475/,2028,,29,,,,0.0,0.0,,,,,,True,base_salary;guaranteed_salary,True
+Justin Fields,https://overthecap.com/player/justin-fields/9475/,2029,,30,,,,0.0,,,,,,,True,base_salary;guaranteed_salary,True
+Justin Fields,https://overthecap.com/player/justin-fields/9475/,2030,,31,,,,0.0,,,,,,,True,base_salary;guaranteed_salary,True
+Justin Herbert,https://overthecap.com/player/justin-herbert/8746/,2023,,25,1010000.0,0.0,1010000.0,8456876.0,3.7,7446876.0,0.0,,,,False,,False
+Justin Herbert,https://overthecap.com/player/justin-herbert/8746/,2024,,26,6000000.0,0.0,6000000.0,19345675.0,7.4,3224375.0,10121300.0,,,,False,,False
+Justin Herbert,https://overthecap.com/player/justin-herbert/8746/,2025,March 15 : 2026 salary is guaranteed,27,15000000.0,0.0,60000000.0,37345675.0,13.2,3224375.0,19121300.0,,,,False,,False
+Justin Herbert,https://overthecap.com/player/justin-herbert/8746/,2026,March 13 : 2027 salary is guaranteed; $25 million of 2028 salary guaranteed for inj,28,24000000.0,0.0,24000000.0,46345675.0,15.2,3224375.0,19121300.0,,,,False,,False
+Justin Herbert,https://overthecap.com/player/justin-herbert/8746/,2027,March 15 : $25 million of 2028 salary is guaranteed,29,36000000.0,0.0,36000000.0,58345675.0,17.8,3224375.0,19121300.0,,,,False,,True
+Justin Herbert,https://overthecap.com/player/justin-herbert/8746/,2028,March 15 : Roster bonus due,30,47000000.0,5000000.0,0.0,71121300.0,20.2,0.0,19121300.0,,,,False,,True
+Justin Herbert,https://overthecap.com/player/justin-herbert/8746/,2029,March 15 : Roster bonus due,31,40500000.0,10000000.0,0.0,59500000.0,,0.0,9000000.0,,,,False,,True
+Kedon Slovis,https://overthecap.com/player/kedon-slovis/12086/,2026,,25,1005000.0,,,558333.0,0.2,,,,,,False,,False
+Kenny Pickett,https://overthecap.com/player/kenny-pickett/10065/,2026,,28,1215000.0,,1215000.0,4000000.0,1.3,2785000.0,,,25000.0,,False,,False
+Kirk Cousins,https://overthecap.com/player/kirk-cousins/1443/,2026,,38,1300000.0,0.0,650000.0,650000.0,0.2,,,,,,False,,False
+Kirk Cousins,https://overthecap.com/player/kirk-cousins/1443/,2027,March 15 : Deadline to release or adjust contract,39,,10000000.0,10000000.0,11345000.0,3.5,,,,,,True,base_salary,True
+Kirk Cousins,https://overthecap.com/player/kirk-cousins/1443/,2028,,40,,,,0.0,0.0,,,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Kirk Cousins,https://overthecap.com/player/kirk-cousins/1443/,2029,,41,,,,0.0,,,,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Kirk Cousins,https://overthecap.com/player/kirk-cousins/1443/,2030,,42,,,,0.0,,,,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Kurtis Rourke,https://overthecap.com/player/kurtis-rourke/12587/,2025,,25,840000.0,,,267559.0,0.1,33559.0,,,,,False,,False
+Kurtis Rourke,https://overthecap.com/player/kurtis-rourke/12587/,2026,,26,885000.0,,,918559.0,0.3,33559.0,,,,,False,,False
+Kurtis Rourke,https://overthecap.com/player/kurtis-rourke/12587/,2027,,27,1120000.0,,,1153559.0,0.4,33559.0,,,,,False,,True
+Kurtis Rourke,https://overthecap.com/player/kurtis-rourke/12587/,2028,,28,1235000.0,,,1268559.0,0.4,33559.0,,,,,False,,True
+Kyle Allen,https://overthecap.com/player/kyle-allen/7494/,2026,,30,1650000.0,,1500000.0,1900000.0,0.6,150000.0,,,100000.0,,False,,False
+Kyle Allen,https://overthecap.com/player/kyle-allen/7494/,2027,,31,1950000.0,,0.0,2200000.0,0.7,150000.0,,,100000.0,,False,,True
+Kyle McCord,https://overthecap.com/player/kyle-mccord/12541/,2026,,24,885000.0,,,885000.0,0.3,,,,,,False,,False
+Kyle Trask,https://overthecap.com/player/kyle-trask/9528/,2026,,28,330300.0,,,220200.0,0.1,,,,,,False,,False
+Kyler Murray,https://overthecap.com/player/kyler-murray/7792/,2026,,29,1300000.0,,,1300000.0,0.4,,,,,,False,,False
+Lamar Jackson,https://overthecap.com/player/lamar-jackson/6917/,2023,,26,7500000.0,,7500000.0,22150000.0,9.9,14650000.0,0.0,,0.0,,False,,False
+Lamar Jackson,https://overthecap.com/player/lamar-jackson/6917/,2024,March 18 : $21M of 2025 salary is guaranteed,27,14250000.0,,14250000.0,32400000.0,12.8,14650000.0,3500000.0,,750000.0,,False,,False
+Lamar Jackson,https://overthecap.com/player/lamar-jackson/6917/,2025,March 17 : $29M of 2026 salary is guaranteed,28,20250000.0,,21000000.0,43500000.0,15.6,14500000.0,8000000.0,,750000.0,,False,,False
+Lamar Jackson,https://overthecap.com/player/lamar-jackson/6917/,2026,,29,1300000.0,,1300000.0,34390000.0,10.9,24340000.0,8000000.0,,750000.0,,False,,False
+Lamar Jackson,https://overthecap.com/player/lamar-jackson/6917/,2027,,30,51250000.0,,0.0,84340000.0,25.8,24340000.0,8000000.0,,750000.0,,False,,True
+Lamar Jackson,https://overthecap.com/player/lamar-jackson/6917/,2028,March 15 : Contract voids,31,,,,42470000.0,12.1,9990000.0,8000000.0,,,,True,base_salary;guaranteed_salary;workout_bonus,True
+Lamar Jackson,https://overthecap.com/player/lamar-jackson/6917/,2029,,32,,,,0.0,,9990000.0,4500000.0,,,,True,base_salary;guaranteed_salary;workout_bonus,True
+Lamar Jackson,https://overthecap.com/player/lamar-jackson/6917/,2030,,33,,,,0.0,,9990000.0,0.0,,,,True,base_salary;guaranteed_salary;workout_bonus,True
+Luke Altmyer,https://overthecap.com/player/luke-altmyer/13689/,2026,,24,247500.0,,,247500.0,0.1,,,,,,False,,False
+Mac Jones,https://overthecap.com/player/mac-jones/9479/,2025,,27,1170000.0,,1510000.0,2558000.0,0.8,448000.0,0.0,340000.0,100000.0,600000.0,False,,False
+Mac Jones,https://overthecap.com/player/mac-jones/9479/,2026,September 1 : Option due by the 5th day prior to first regular season game.,28,1400000.0,,1250000.0,3130000.0,0.9,508000.0,282000.0,340000.0,100000.0,500000.0,False,,False
+Mac Jones,https://overthecap.com/player/mac-jones/9479/,2027,February 15 : Contract voids on the 5th day of waiver period,29,,,,2712000.0,0.8,508000.0,282000.0,,,,True,base_salary;guaranteed_salary;per_game_roster_bonus;workout_bonus;other_bonus,True
+Mac Jones,https://overthecap.com/player/mac-jones/9479/,2028,,30,,,,0.0,0.0,508000.0,282000.0,,,,True,base_salary;guaranteed_salary;per_game_roster_bonus;workout_bonus;other_bonus,True
+Mac Jones,https://overthecap.com/player/mac-jones/9479/,2029,,31,,,,0.0,,508000.0,282000.0,,,,True,base_salary;guaranteed_salary;per_game_roster_bonus;workout_bonus;other_bonus,True
+Mac Jones,https://overthecap.com/player/mac-jones/9479/,2030,,32,,,,0.0,,60000.0,282000.0,,,,True,base_salary;guaranteed_salary;per_game_roster_bonus;workout_bonus;other_bonus,True
+Malik Willis,https://overthecap.com/player/malik-willis/10131/,2026,,27,1215000.0,0.0,1215000.0,5672000.0,1.8,4457000.0,,,,,False,,False
+Malik Willis,https://overthecap.com/player/malik-willis/10131/,2027,,28,21500000.0,0.0,21500000.0,25957000.0,7.9,4457000.0,,,,,False,,True
+Malik Willis,https://overthecap.com/player/malik-willis/10131/,2028,March 14 : Roster bonus due,29,20500000.0,2000000.0,0.0,26957000.0,7.7,4457000.0,,,,,False,,True
+Malik Willis,https://overthecap.com/player/malik-willis/10131/,2029,February 10 : Contract voids on 5th day waiver period,30,,,,8914000.0,,4457000.0,,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Malik Willis,https://overthecap.com/player/malik-willis/10131/,2030,,31,,,,0.0,,4457000.0,,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Marcus Mariota,https://overthecap.com/player/marcus-mariota/3850/,2026,,33,1390000.0,,1390000.0,7340000.0,2.2,5000000.0,,510000.0,100000.0,400000.0,False,,False
+Mason Rudolph,https://overthecap.com/player/mason-rudolph/6961/,2025,,30,1255000.0,,,2877500.0,1.0,1622500.0,,,,,False,,False
+Mason Rudolph,https://overthecap.com/player/mason-rudolph/6961/,2026,,31,3000000.0,,,4622500.0,1.4,1622500.0,,,,,False,,False
+Matt Stafford,https://overthecap.com/player/matt-stafford/1060/,2026,September 1 : All four options due by 1st regular season game,38,16000000.0,0.0,40000000.0,48266668.0,15.4,27466668.0,4800000.0,,,,False,,False
+Matt Stafford,https://overthecap.com/player/matt-stafford/1060/,2027,September 1 : All four options due by 1st regular season game,39,10000000.0,5000000.0,50000000.0,31600000.0,9.7,4800000.0,11800000.0,,,,False,,True
+Matt Stafford,https://overthecap.com/player/matt-stafford/1060/,2028,March 20 : 2029 salary becomes guaranteed,40,,5000000.0,,22990000.0,6.5,4800000.0,11800000.0,,,,True,base_salary;guaranteed_salary,True
+Matt Stafford,https://overthecap.com/player/matt-stafford/1060/,2029,,41,,,,35400000.0,,4800000.0,11800000.0,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Matt Stafford,https://overthecap.com/player/matt-stafford/1060/,2030,February 20 : Contract voids,42,,,,0.0,,0.0,11800000.0,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Matt Stafford,https://overthecap.com/player/matt-stafford/1060/,2031,,43,,,,0.0,,0.0,7000000.0,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Matt Stafford,https://overthecap.com/player/matt-stafford/1060/,2032,,44,,,,0.0,,0.0,0.0,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Matt Stafford,https://overthecap.com/player/matt-stafford/1060/,2033,,45,,,,0.0,,0.0,0.0,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Matt Stafford,https://overthecap.com/player/matt-stafford/1060/,2034,,46,,,,0.0,,0.0,0.0,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Matt Stafford,https://overthecap.com/player/matt-stafford/1060/,2035,,47,,,,0.0,,0.0,0.0,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Matt Stafford,https://overthecap.com/player/matt-stafford/1060/,2036,,48,,,,0.0,,0.0,0.0,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Matt Stafford,https://overthecap.com/player/matt-stafford/1060/,2037,,49,,,,0.0,,0.0,0.0,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Matt Stafford,https://overthecap.com/player/matt-stafford/1060/,2038,,50,,,,0.0,,0.0,0.0,,,,True,base_salary;roster_bonus;guaranteed_salary,True
+Matthew Caldwell,https://overthecap.com/player/matthew-caldwell/13797/,2026,,23,885000.0,,,517000.0,0.2,2000.0,,,,,False,,False
+Matthew Caldwell,https://overthecap.com/player/matthew-caldwell/13797/,2027,,24,1050000.0,,,1052000.0,0.3,2000.0,,,,,False,,True
+Matthew Caldwell,https://overthecap.com/player/matthew-caldwell/13797/,2028,,25,1165000.0,,,1167000.0,0.3,2000.0,,,,,False,,True
+Max Brosmer,https://overthecap.com/player/max-brosmer/12646/,2026,,25,1005000.0,,,837500.0,0.3,,,,,,False,,False
+Max Brosmer,https://overthecap.com/player/max-brosmer/12646/,2027,,26,1120000.0,,,1120000.0,0.3,,,,,,False,,True
+Michael Penix Jr.,https://overthecap.com/player/michael-penix-jr/11616/,2024,,24,795000.0,0.0,795000.0,4160479.0,1.6,3365479.0,,,,,False,,False
+Michael Penix Jr.,https://overthecap.com/player/michael-penix-jr/11616/,2025,,25,960000.0,875120.0,1835120.0,5200599.0,1.8,3365479.0,,,,,False,,False
+Michael Penix Jr.,https://overthecap.com/player/michael-penix-jr/11616/,2026,,26,1075000.0,1800240.0,2875240.0,6240719.0,2.0,3365479.0,,,,,False,,False
+Michael Penix Jr.,https://overthecap.com/player/michael-penix-jr/11616/,2027,,27,1190000.0,2725360.0,3915360.0,7280839.0,2.2,3365479.0,,,,,False,,True
+Miller Moss,https://overthecap.com/player/miller-moss/13676/,2026,,24,247500.0,,,282917.0,0.1,,,,,,False,,False
+Mitchell Trubisky,https://overthecap.com/player/mitchell-trubisky/5586/,2026,,32,2825000.0,,2825000.0,4250000.0,1.2,1000000.0,,425000.0,,,False,,False
+Mitchell Trubisky,https://overthecap.com/player/mitchell-trubisky/5586/,2027,,33,4825000.0,,2000000.0,6250000.0,1.9,1000000.0,,425000.0,,,False,,True
+Nick Mullens,https://overthecap.com/player/nick-mullens/6007/,2026,,31,330300.0,,,413044.0,0.1,,,,,,False,,False
+Patrick Mahomes,https://overthecap.com/player/patrick-mahomes/5594/,2026,,31,1300000.0,0.0,2300000.0,34653888.0,11.5,32353888.0,,,1000000.0,,False,,False
+Patrick Mahomes,https://overthecap.com/player/patrick-mahomes/5594/,2027,May 5 : Roster bonus due,32,27000000.0,30000000.0,58000000.0,90353892.0,27.6,32353892.0,,,1000000.0,,False,,True
+Patrick Mahomes,https://overthecap.com/player/patrick-mahomes/5594/,2028,May 5 : Roster bonus due,33,29000000.0,30000000.0,35250000.0,85839000.0,24.4,25839000.0,,,1000000.0,,False,,True
+Patrick Mahomes,https://overthecap.com/player/patrick-mahomes/5594/,2029,May 5 : Roster bonus due,34,31500000.0,30000000.0,0.0,82939000.0,,20439000.0,,,1000000.0,,False,,True
+Patrick Mahomes,https://overthecap.com/player/patrick-mahomes/5594/,2030,May 5 : Roster bonus due,35,32750000.0,30000000.0,0.0,74640000.0,,10890000.0,,,1000000.0,,False,,True
+Patrick Mahomes,https://overthecap.com/player/patrick-mahomes/5594/,2031,May 5 : Roster bonus due,36,34740000.0,30000000.0,0.0,65750000.0,,0.0,,,1000000.0,,False,,True
+Patrick Mahomes,https://overthecap.com/player/patrick-mahomes/5594/,2032,May 5 : Roster bonus due,37,37000000.0,30000000.0,0.0,68000000.0,,0.0,,,1000000.0,,False,,True
+Patrick Mahomes,https://overthecap.com/player/patrick-mahomes/5594/,2033,May 5 : Roster bonus due,38,39000000.0,30000000.0,0.0,70000000.0,,0.0,,,1000000.0,,False,,True
+Patrick Mahomes,https://overthecap.com/player/patrick-mahomes/5594/,2034,,39,,,,0.0,,0.0,,,,,True,base_salary;roster_bonus;guaranteed_salary;workout_bonus,True
+Patrick Mahomes,https://overthecap.com/player/patrick-mahomes/5594/,2035,,40,,,,0.0,,0.0,,,,,True,base_salary;roster_bonus;guaranteed_salary;workout_bonus,True
+Quinn Ewers,https://overthecap.com/player/quinn-ewers/12591/,2026,,23,1005000.0,,,1005000.0,0.3,,,,,,False,,False
+Quinn Ewers,https://overthecap.com/player/quinn-ewers/12591/,2027,,24,1120000.0,,,1120000.0,0.3,,,,,,False,,True
+Quinn Ewers,https://overthecap.com/player/quinn-ewers/12591/,2028,,25,1235000.0,,,1235000.0,0.4,,,,,,False,,True
+Riley Leonard,https://overthecap.com/player/riley-leonard/12549/,2025,,23,840000.0,,,898811.0,0.3,58811.0,,,,,False,,False
+Riley Leonard,https://overthecap.com/player/riley-leonard/12549/,2026,,24,1005000.0,,,1063811.0,0.4,58811.0,,,,,False,,False
+Riley Leonard,https://overthecap.com/player/riley-leonard/12549/,2027,,25,1120000.0,,,1178811.0,0.4,58811.0,,,,,False,,True
+Riley Leonard,https://overthecap.com/player/riley-leonard/12549/,2028,,26,1235000.0,,,1293811.0,0.4,58811.0,,,,,False,,True
+Sam Darnold,https://overthecap.com/player/sam-darnold/6888/,2025,,28,5300000.0,0.0,5500000.0,13400000.0,4.7,6400000.0,,,200000.0,1500000.0,False,,False
+Sam Darnold,https://overthecap.com/player/sam-darnold/6888/,2026,March 15 : Roster bonus due,29,6800000.0,15000000.0,6800000.0,33500000.0,10.7,7500000.0,,,200000.0,4000000.0,False,,False
+Sam Darnold,https://overthecap.com/player/sam-darnold/6888/,2027,March 17 : Roster bonus due,30,35500000.0,10000000.0,0.0,46000000.0,14.1,7500000.0,,,200000.0,0.0,False,,True
+Sam Darnold,https://overthecap.com/player/sam-darnold/6888/,2028,February 20 : Contract voids,31,,,,16100000.0,4.6,7500000.0,,,,,True,base_salary;roster_bonus;guaranteed_salary;workout_bonus;other_bonus,True
+Sam Darnold,https://overthecap.com/player/sam-darnold/6888/,2029,,32,,,,0.0,,7500000.0,,,,,True,base_salary;roster_bonus;guaranteed_salary;workout_bonus;other_bonus,True
+Sam Darnold,https://overthecap.com/player/sam-darnold/6888/,2030,,33,,,,0.0,,1100000.0,,,,,True,base_salary;roster_bonus;guaranteed_salary;workout_bonus;other_bonus,True
+Sam Ehlinger,https://overthecap.com/player/sam-ehlinger/9682/,2026,,28,2000000.0,,1000000.0,2000000.0,0.7,,,,,,False,,False
+Sam Hartman,https://overthecap.com/player/sam-hartman/12180/,2026,,27,247500.0,,,247500.0,0.1,,,,,,False,,False
+Sam Howell,https://overthecap.com/player/sam-howell/10189/,2026,,26,2000000.0,,2000000.0,2500000.0,0.8,500000.0,,,,,False,,False
+Sean Clifford,https://overthecap.com/player/sean-clifford/10973/,2026,,28,247500.0,,,247500.0,0.1,,,,,,False,,False
+Shane Buechele,https://overthecap.com/player/shane-buechele/9819/,2026,,28,247500.0,,,293472.0,0.1,,,,,,False,,False
+Shedeur Sanders,https://overthecap.com/player/shedeur-sanders/12504/,2025,,23,840000.0,,,951845.0,0.3,111845.0,,,,,False,,False
+Shedeur Sanders,https://overthecap.com/player/shedeur-sanders/12504/,2026,,24,1005000.0,,,1116845.0,0.3,111845.0,,,,,False,,False
+Shedeur Sanders,https://overthecap.com/player/shedeur-sanders/12504/,2027,,25,1120000.0,,,1231845.0,0.4,111845.0,,,,,False,,True
+Shedeur Sanders,https://overthecap.com/player/shedeur-sanders/12504/,2028,,26,1235000.0,,,1346845.0,0.4,111845.0,,,,,False,,True
+Skylar Thompson,https://overthecap.com/player/skylar-thompson/10292/,2026,,29,1145000.0,,,590000.0,0.2,,,,,,False,,False
+Spencer Rattler,https://overthecap.com/player/spencer-rattler/11758/,2024,,24,795000.0,,,879120.0,0.3,84120.0,,,,,False,,False
+Spencer Rattler,https://overthecap.com/player/spencer-rattler/11758/,2025,,25,960000.0,,,1044120.0,0.4,84120.0,,,,,False,,False
+Spencer Rattler,https://overthecap.com/player/spencer-rattler/11758/,2026,,26,1075000.0,,,1159120.0,0.4,84120.0,,,,,False,,False
+Spencer Rattler,https://overthecap.com/player/spencer-rattler/11758/,2027,,27,1190000.0,,,1274120.0,0.4,84120.0,,,,,False,,True
+Stetson Bennett,https://overthecap.com/player/stetson-bennett/10952/,2023,,26,750000.0,,,624783.0,0.3,174783.0,,,,,False,,False
+Stetson Bennett,https://overthecap.com/player/stetson-bennett/10952/,2024,,27,795000.0,,,969783.0,0.4,174783.0,,,,,False,,False
+Stetson Bennett,https://overthecap.com/player/stetson-bennett/10952/,2025,,28,1030000.0,,,1204783.0,0.4,174783.0,,,,,False,,False
+Stetson Bennett,https://overthecap.com/player/stetson-bennett/10952/,2026,,29,1145000.0,,,1319783.0,0.4,174783.0,,,,,False,,False
+Tanner McKee,https://overthecap.com/player/tanner-mckee/11012/,2023,,23,750000.0,,,796630.0,0.3,46630.0,,,,,False,,False
+Tanner McKee,https://overthecap.com/player/tanner-mckee/11012/,2024,,24,915000.0,,,961630.0,0.4,46630.0,,,,,False,,False
+Tanner McKee,https://overthecap.com/player/tanner-mckee/11012/,2025,,25,1030000.0,,,1076630.0,0.4,46630.0,,,,,False,,False
+Tanner McKee,https://overthecap.com/player/tanner-mckee/11012/,2026,,26,1145000.0,,,1191630.0,0.4,46630.0,,,,,False,,False
+Taylen Green,https://overthecap.com/player/taylen-green/13326/,2026,,24,885000.0,,,969541.0,0.3,84541.0,,,,,False,,False
+Taylen Green,https://overthecap.com/player/taylen-green/13326/,2027,,25,1050000.0,,,1134541.0,0.3,84541.0,,,,,False,,True
+Taylen Green,https://overthecap.com/player/taylen-green/13326/,2028,,26,1165000.0,,,1249541.0,0.4,84541.0,,,,,False,,True
+Taylen Green,https://overthecap.com/player/taylen-green/13326/,2029,,27,1280000.0,,,1364541.0,,84541.0,,,,,False,,True
+Tommy DeVito,https://overthecap.com/player/tommy-devito/11293/,2026,,28,1150000.0,,1150000.0,1550000.0,0.4,325000.0,,425000.0,75000.0,,False,,False
+Tommy DeVito,https://overthecap.com/player/tommy-devito/11293/,2027,,29,1600000.0,,0.0,2425000.0,0.7,325000.0,,425000.0,75000.0,,False,,True
+Trevor Lawrence,https://overthecap.com/player/trevor-lawrence/9465/,2024,,25,1500000.0,,1500000.0,15029725.0,5.6,7500000.0,0.0,,0.0,,False,,False
+Trevor Lawrence,https://overthecap.com/player/trevor-lawrence/9465/,2025,March 22 : Option due,26,2000000.0,,2000000.0,17000000.0,5.7,7500000.0,7000000.0,,500000.0,,False,,False
+Trevor Lawrence,https://overthecap.com/player/trevor-lawrence/9465/,2026,March 20 : Option due,27,2000000.0,,2000000.0,24000000.0,7.7,7500000.0,14000000.0,,500000.0,,False,,False
+Trevor Lawrence,https://overthecap.com/player/trevor-lawrence/9465/,2027,March 23 : Option due,28,6000000.0,,41000000.0,35000000.0,10.7,7500000.0,21000000.0,,500000.0,,False,,True
+Trevor Lawrence,https://overthecap.com/player/trevor-lawrence/9465/,2028,March 23 : Option due,29,11000000.0,,0.0,47000000.0,13.4,7500000.0,28000000.0,,500000.0,,False,,True
+Trevor Lawrence,https://overthecap.com/player/trevor-lawrence/9465/,2029,,30,50000000.0,,0.0,78500000.0,,0.0,28000000.0,,500000.0,,False,,True
+Trevor Lawrence,https://overthecap.com/player/trevor-lawrence/9465/,2030,,31,53341293.0,,0.0,74841293.0,,0.0,21000000.0,,500000.0,,False,,True
+Trevor Lawrence,https://overthecap.com/player/trevor-lawrence/9465/,2031,February 18 : Contract voids,32,,,,21000000.0,,0.0,14000000.0,,,,True,base_salary;guaranteed_salary;workout_bonus,True
+Trevor Lawrence,https://overthecap.com/player/trevor-lawrence/9465/,2032,,33,,,,0.0,,0.0,7000000.0,,,,True,base_salary;guaranteed_salary;workout_bonus,True
+Trevor Lawrence,https://overthecap.com/player/trevor-lawrence/9465/,2033,,34,,,,0.0,,0.0,0.0,,,,True,base_salary;guaranteed_salary;workout_bonus,True
+Trevor Lawrence,https://overthecap.com/player/trevor-lawrence/9465/,2034,,35,,,,0.0,,0.0,0.0,,,,True,base_salary;guaranteed_salary;workout_bonus,True
+Trey Lance,https://overthecap.com/player/trey-lance/9467/,2026,,26,1700000.0,,1200000.0,2500000.0,0.8,800000.0,,,,,False,,False
+Tua Tagovailoa,https://overthecap.com/player/tua-tagovailoa/8745/,2026,,28,1215000.0,,,1215000.0,0.4,,,,,,False,,False
+Ty Simpson,https://overthecap.com/player/ty-simpson/13157/,2026,,24,885000.0,0.0,885000.0,4620392.0,1.5,3735392.0,,,,,False,,False
+Ty Simpson,https://overthecap.com/player/ty-simpson/13157/,2027,,25,1050000.0,990098.0,2040098.0,5775490.0,1.8,3735392.0,,,,,False,,True
+Ty Simpson,https://overthecap.com/player/ty-simpson/13157/,2028,,26,1165000.0,2030196.0,3195196.0,6930588.0,2.0,3735392.0,,,,,False,,True
+Ty Simpson,https://overthecap.com/player/ty-simpson/13157/,2029,,27,1280000.0,3070294.0,4350294.0,8085686.0,,3735392.0,,,,,False,,True
+Tyler Huntley,https://overthecap.com/player/tyler-huntley/9318/,2026,,28,1300000.0,0.0,1300000.0,2150000.0,0.7,850000.0,,,,,False,,False
+Tyler Huntley,https://overthecap.com/player/tyler-huntley/9318/,2027,March 15 : Roster bonus due,29,1500000.0,500000.0,500000.0,2850000.0,0.9,850000.0,,,,,False,,True
+Tyler Shough,https://overthecap.com/player/tyler-shough/12400/,2025,,26,840000.0,0.0,840000.0,1964496.0,0.7,1124496.0,,,,,False,,False
+Tyler Shough,https://overthecap.com/player/tyler-shough/12400/,2026,July 20 : Roster bonus due on the 5th day of training camp,27,1005000.0,326124.0,1331124.0,2455620.0,0.8,1124496.0,,,,,False,,False
+Tyler Shough,https://overthecap.com/player/tyler-shough/12400/,2027,July 20 : Roster bonus due on the 5th day of training camp,28,1120000.0,702248.0,1822248.0,2946744.0,0.9,1124496.0,,,,,False,,True
+Tyler Shough,https://overthecap.com/player/tyler-shough/12400/,2028,July 20 : Roster bonus due on the 5th day of training camp,29,1235000.0,1078372.0,2313372.0,3437868.0,1.0,1124496.0,,,,,False,,True
+Tyrod Taylor,https://overthecap.com/player/tyrod-taylor/1407/,2026,,37,1300000.0,,,2852941.0,0.9,700000.0,,500000.0,,500000.0,False,,False
+Tyson Bagent,https://overthecap.com/player/tyson-bagent/11238/,2025,,25,1030000.0,,1030000.0,1538334.0,0.5,508334.0,,,0.0,,False,,False
+Tyson Bagent,https://overthecap.com/player/tyson-bagent/11238/,2026,March 13 : Salary becomes fully guaranteed,26,4000000.0,,4000000.0,4750000.0,1.5,500000.0,,,250000.0,,False,,False
+Tyson Bagent,https://overthecap.com/player/tyson-bagent/11238/,2027,,27,4000000.0,,0.0,4750000.0,1.5,500000.0,,,250000.0,,False,,True
+Will Howard,https://overthecap.com/player/will-howard/12545/,2025,,24,840000.0,,,707581.0,0.2,62025.0,,,,,False,,False
+Will Howard,https://overthecap.com/player/will-howard/12545/,2026,,25,1005000.0,,,1067025.0,0.3,62025.0,,,,,False,,False
+Will Howard,https://overthecap.com/player/will-howard/12545/,2027,,26,1120000.0,,,1182025.0,0.4,62025.0,,,,,False,,True
+Will Howard,https://overthecap.com/player/will-howard/12545/,2028,,27,1235000.0,,,1297025.0,0.4,62025.0,,,,,False,,True
+Will Levis,https://overthecap.com/player/will-levis/10857/,2026,,27,330300.0,,,293600.0,0.1,,,,,,False,,False
+Zach Wilson,https://overthecap.com/player/zach-wilson/9466/,2026,,27,1215000.0,,411300.0,1262500.0,0.4,187500.0,,,,,False,,False
