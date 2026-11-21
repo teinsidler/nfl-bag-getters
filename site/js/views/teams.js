@@ -39,7 +39,10 @@
       }
       for (const d of deadMoney) {
         if (!d.franchise || d.year < from || d.year > to || !classOk(d.contract_class)) continue;
-        const v = dv(d), r = get(d.franchise); r.dead += v; r.total += v; r[d.exit === 'traded' ? 'dead_traded' : 'dead_cut'] += v;
+        if (d.played_role && p.money === 'dead') continue; // paid while he played there: not dead cap left behind
+        const v = dv(d), r = get(d.franchise); r.total += v;
+        if (d.played_role) { r[d.played_role] += v; continue; } // paid while he played there, before a mid-season move
+        r.dead += v; r[d.exit === 'traded' ? 'dead_traded' : 'dead_cut'] += v;
       }
       for (const t of teamSeasons) {
         if (t.year < from || t.year > to) continue;
@@ -78,7 +81,7 @@
       const by = new Map();
       const get = (url, name, role, deal, arrival) => {
         const id = url + '|' + role + '|' + deal + '|' + arrival;
-        if (!by.has(id)) by.set(id, { flow_id: id, franchise: team, player_url: url, player: name, role, contract_class: deal, arrival, money: 0, seasons: 0, years: [], team_starts: 0, wins: 0, losses: 0, ties: 0, po_wins: 0, po_losses: 0, dead: 0, other_team_starts: 0, exits: [] });
+        if (!by.has(id)) by.set(id, { flow_id: id, franchise: team, player_url: url, player: name, role, contract_class: deal, arrival, money: 0, seasons: 0, years: [], team_starts: 0, wins: 0, losses: 0, ties: 0, po_wins: 0, po_losses: 0, dead: 0, other_team_starts: 0, exits: [], left: [] });
         return by.get(id);
       };
       for (const s of inS) {
@@ -91,13 +94,22 @@
       }
       for (const d of inD) {
         if (d.franchise !== team) continue;
+        if (d.played_role && p.money === 'dead') continue;
+        if (d.played_role) {
+          // he played here until a mid-season trade or release: credit the role, not dead cap
+          const r = get(d.player_url, d.player, d.played_role, d.contract_class || 'unknown', d.arrival || 'unknown');
+          r.money += dv(d); r.years.push(d.year);
+          if (d.team_starts) { r.seasons += 1; r.team_starts += d.team_starts; r.wins += d.team_wins || 0; r.losses += d.team_losses || 0; r.ties += d.team_ties || 0; }
+          if (!r.left.includes(d.exit)) r.left.push(d.exit);
+          continue;
+        }
         const r = get(d.player_url, d.player, d.exit === 'traded' ? 'dead_traded' : 'dead_cut', d.contract_class || 'unknown', 'gone');
         const v = dv(d); r.money += v; r.dead += d.cap_charge || 0; r.years.push(d.year); if (!r.exits.includes(d.exit)) r.exits.push(d.exit);
       }
       return [...by.values()].filter((r) => r.money > 0).map((r) => {
         r.money = p.money === 'cap_share' ? Math.round(r.money * 100) / 100 : Math.round(r.money);
         const ys = [...new Set(r.years)].sort(); r.first = ys[0]; r.last = ys[ys.length - 1]; delete r.years;
-        r.exits = r.exits.join(', ');
+        r.exits = r.exits.join(', '); r.left = r.left.join(', ');
         return r;
       });
     }
@@ -295,7 +307,7 @@
         tip.append('div').text(fm(n.value) + ' · ' + pctOf(n.value) + ' of the team’s QB money');
         if (n.url) {
           const mine = rows.filter((r) => r.player_url === n.url);
-          for (const r of mine) tip.append('div').text(ROLE_LABEL[r.role] + ', ' + DEAL_LABEL[r.contract_class].toLowerCase() + (isDead(r.role) ? (r.exits ? ' (' + r.exits.split(', ').map((x) => EXIT_TXT[x] || x).join(', ') + ')' : '') : ', ' + (ARR_LABEL[r.arrival] || 'arrival unknown').toLowerCase()) + ': ' + fm(r.money) + (r.first ? ' (' + (r.first === r.last ? r.first : r.first + '–' + r.last) + ')' : ''));
+          for (const r of mine) tip.append('div').text(ROLE_LABEL[r.role] + ', ' + DEAL_LABEL[r.contract_class].toLowerCase() + (isDead(r.role) ? (r.exits ? ' (' + r.exits.split(', ').map((x) => EXIT_TXT[x] || x).join(', ') + ')' : '') : ', ' + (ARR_LABEL[r.arrival] || 'arrival unknown').toLowerCase() + (r.left ? ', then ' + r.left.split(', ').map((x) => EXIT_TXT[x] || x).join(', ') + ' mid-season' : '')) + ': ' + fm(r.money) + (r.first ? ' (' + (r.first === r.last ? r.first : r.first + '–' + r.last) + ')' : ''));
           const elsewhere = d3.sum(mine, (r) => r.other_team_starts);
           if (elsewhere) tip.append('div').text('Also started ' + elsewhere + ' game' + (elsewhere === 1 ? '' : 's') + ' for another team in these seasons (moved mid-season). Each season’s pay sits with one team.');
           tip.append('div').style('color', 'var(--color-fg-muted)').text('Tap for breakdown ›');
@@ -346,6 +358,7 @@
       roles: d3.rollups(v.filter((r) => !isDead(r.role)), (w) => d3.sum(w, (r) => r.seasons), (r) => r.role),
       arrivals: [...new Set(v.filter((r) => !isDead(r.role)).map((r) => r.arrival))].map((a) => ARR_LABEL[a] || a),
       exits: [...new Set(v.flatMap((r) => r.exits ? r.exits.split(', ') : []))].map((x) => EXIT_TXT[x] || x),
+      left: [...new Set(v.flatMap((r) => r.left ? r.left.split(', ') : []))].map((x) => (EXIT_TXT[x] || x) + ' mid-season'),
       wins: d3.sum(v, (r) => r.wins), losses: d3.sum(v, (r) => r.losses), ties: d3.sum(v, (r) => r.ties), starts: d3.sum(v, (r) => r.team_starts),
       po_wins: d3.sum(v, (r) => r.po_wins), po_losses: d3.sum(v, (r) => r.po_losses)
     })).sort((a, b) => b.money - a.money);
@@ -356,7 +369,7 @@
       const add = (t, cls) => { const td = tr.insertCell(); if (cls) td.className = cls; td.textContent = t; return td; };
       add('', 'bg-name').append(BG.span(q.player, null, null, null, 'bg-qblink'));
       const roleTxt = q.roles.sort((a, b) => ROLES.findIndex(([k]) => k === a[0]) - ROLES.findIndex(([k]) => k === b[0])).map(([k, n]) => ROLE_LABEL[k].replace(' (played)', '') + ' ×' + n).join(', ');
-      add([q.arrivals.join(' / '), roleTxt, q.exits.length ? 'dead cap: ' + q.exits.join(', ') : ''].filter(Boolean).join(' · ') || 'Dead cap only', 'bg-hide-sm');
+      add([q.arrivals.join(' / '), roleTxt, q.left.join(', '), q.exits.length ? 'dead cap: ' + q.exits.join(', ') : ''].filter(Boolean).join(' · ') || 'Dead cap only', 'bg-hide-sm');
       add(fm(q.money), 'num'); add(BG.pct(100 * q.money / tot, 0), 'num'); add(q.dead ? fm(q.dead) : '—', 'num bg-hide-sm');
       add(q.starts ? BG.wl(q.wins, q.losses, q.ties) : '—', 'num'); add(q.po_wins + q.po_losses ? BG.wl(q.po_wins, q.po_losses) : '—', 'num bg-hide-sm');
     }

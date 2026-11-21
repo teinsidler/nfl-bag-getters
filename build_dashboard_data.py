@@ -5,7 +5,7 @@ fetch_qb_profiles.py and fix_profile_quirks.py.
 
 Also reads fetch_qb_wins.py's qb_game_starts.csv and fetch_qb_pbp_stats.py's qb_season_pbp.csv.
 
-Writes data/dashboard/{seasons,dead_money,contracts,players,cap_factors,team_seasons,meta}.json, each
+Writes data/dashboard/{seasons,dead_money,contracts,players,cap_factors,team_seasons,game_log,meta}.json, each
 {"rows": [...], "meta": [...]}; meta carries this script's source so readers can check it.
 
 Rules
@@ -36,6 +36,7 @@ Rules
 """
 import json
 import math
+from datetime import date
 from pathlib import Path
 
 import numpy as np
@@ -294,6 +295,28 @@ def main() -> None:
     same_team = d.contract_id.map(cinfo.team).map(lambda t: OTC_FRANCHISE.get(t, t) if isinstance(t, str) else t) == d.franchise
     d["exit"] = st_.map(EXIT).where(same_team, "other").fillna("other")
 
+    # A dead charge with a team he also started for that same season is money paid while he
+    # played there (traded or released mid-season; OTC files the season under his last team).
+    # Credit the role he played for that team instead of counting it as dead cap.
+    gsis_of = xwalk.dropna().drop_duplicates("player_url").set_index("player_url").gsis_id
+    season_fr = sh.set_index(["player_url", "year"]).franchise
+    season_fr = season_fr[~season_fr.index.duplicated()]
+    fsi = fs.set_index(["gsis_id", "year", "franchise"])
+    played = []
+    for r in d.itertuples():
+        key = (gsis_of.get(r.player_url), r.year, r.franchise)
+        home = season_fr.get((r.player_url, r.year))
+        if key in fsi.index and home != r.franchise:  # season row with another team, or none at all
+            f = fsi.loc[key]
+            played.append(("starter" if f.top else "spot", int(f.team_starts), int(f.team_wins), int(f.team_losses),
+                           int(f.team_ties), arrival_of(r)))
+        else:
+            played.append((None, 0, 0, 0, 0, None))
+    d[["played_role", "team_starts", "team_wins", "team_losses", "team_ties", "arrival"]] = pd.DataFrame(played, index=d.index)
+    # a stint can carry several charges (salary, bonuses): keep its record on the first one only
+    dup = d.played_role.notna() & d.duplicated(["player_url", "franchise", "year"])
+    d.loc[dup, ["team_starts", "team_wins", "team_losses", "team_ties"]] = 0
+
     # ---- team seasons (team page): record and who started -----------------------------
     def team_rec(g, pre):
         g = g.assign(w=g.outcome.eq("W"), l=g.outcome.eq("L"), t=g.outcome.eq("T"))
@@ -304,13 +327,61 @@ def main() -> None:
     ts = ts.reset_index().rename(columns={"season": "year"})
     ts = ts[ts.year <= current]
 
+    # ---- current season, game by game (fetch_weekly.py) ---------------------------------
+    NOW_NAME = dict(ABBR, WAS="Commanders")  # today's names, as Over The Cap shows them
+    url_of = xwalk.dropna().drop_duplicates("gsis_id").set_index("gsis_id").player_url
+    gl = pd.read_csv(DATA / "qb_week_games.csv") if (DATA / "qb_week_games.csv").exists() else pd.DataFrame()
+    if len(gl):
+        gl["player_url"] = gl.player_id.map(url_of)
+        gl = gl[gl.player_url.notna()].copy()
+        # result and home/away come from the game, for every row
+        side = starts.drop_duplicates(["game_id", "team"])[["game_id", "team", "outcome", "points_for", "points_against", "home"]]
+        gl = gl.merge(side, on=["game_id", "team"], how="left")
+        # started: nflverse's starter, or the team's busiest passer that game (the two sources disagree now and then)
+        nfl_start = set(zip(starts.game_id, starts.player_id))
+        busiest = gl.attempts.fillna(0) == gl.groupby(["game_id", "team"]).attempts.transform("max")
+        gl["started"] = [(g, p) in nfl_start for g, p in zip(gl.game_id, gl.player_id)] | (busiest & (gl.attempts.fillna(0) >= 10))
+        gl["franchise"] = gl.team.map(NOW_NAME)
+        gl["opponent_name"] = gl.opponent.map(NOW_NAME)
+        gl["order"] = gl.season_type.map({"REG": 0, "POST": 1}).fillna(0) * 100 + gl.week
+        gl = gl.sort_values(["player_url", "order"])
+        # team changes during the season, and whether each was a trade
+        trades = pd.read_csv(DATA / "trades.csv") if (DATA / "trades.csv").exists() else pd.DataFrame(columns=["season", "gave", "received", "pfr_id"])
+        pfr_of = pd.read_csv(DATA / "qb_pfr_ids.csv").set_index("gsis_id").pfr_id if (DATA / "qb_pfr_ids.csv").exists() else pd.Series(dtype=str)
+        tset = set(zip(trades.pfr_id, trades.season, trades.gave.map(NOW_NAME), trades.received.map(NOW_NAME)))
+        now_of = lambda t: "Commanders" if OTC_FRANCHISE.get(t, t) == "Washington" else OTC_FRANCHISE.get(t, t)
+        ctr = c.assign(fr=c.team.map(now_of))
+        def otc_traded(url, fr, season):
+            k = ctr[(ctr.player_url == url) & (ctr.fr == fr) & (ctr.year_signed <= season)]
+            return len(k) > 0 and k.sort_values("year_signed").status.iloc[-1] == "Traded"
+        prev = gl.groupby("player_url").franchise.shift()
+        gl["moved_from"] = prev.where(prev.notna() & (prev != gl.franchise))
+        def how(r):
+            if not isinstance(r.moved_from, str):
+                return None
+            if (pfr_of.get(r.player_id), r.season, r.moved_from, r.franchise) in tset or otc_traded(r.player_url, r.moved_from, r.season):
+                return "traded"
+            return "signed"
+        gl["moved"] = [how(r) for r in gl.itertuples()]
+        gl = gl[["player_url", "season", "season_type", "week", "franchise", "opponent_name", "home", "started", "outcome",
+                 "points_for", "points_against", "completions", "attempts", "passing_yards", "passing_tds", "interceptions",
+                 "sacks", "carries", "rushing_yards", "rushing_tds", "epa", "moved_from", "moved"]].rename(
+                 columns={"franchise": "team", "opponent_name": "opponent"})
+
     # ---- players --------------------------------------------------------------------
     pl = players.merge(xwalk, on="player_url", how="left")
     pl["has_season_history"] = pl.player_url.isin(sh.player_url)
     pl["has_stats"] = pl.gsis_id.isin(stats.player_id)
+    # team now: on a roster in the latest week of the current season (fetch_weekly.py)
+    if (DATA / "qb_current_team.csv").exists():
+        ct = pd.read_csv(DATA / "qb_current_team.csv").drop_duplicates("gsis_id").set_index("gsis_id")
+        pl["current_team"] = pl.gsis_id.map(ct.team).map(NOW_NAME)
+        pl["current_week"] = pl.gsis_id.map(ct.week)
+    else:
+        pl["current_team"], pl["current_week"] = None, None
     pl = pl[["player_url", "player", "gsis_id", "entry", "entry_year", "entry_type", "entry_round", "entry_pick",
              "entry_team", "college", "career_earnings", "career_apy", "total_guarantees", "current_contract",
-             "has_season_history", "has_stats"]]
+             "has_season_history", "has_stats", "current_team", "current_week"]]
 
     # ---- checks ---------------------------------------------------------------------
     built = (sh[sh.year < current].groupby("player_url").cash_paid.sum()
@@ -333,12 +404,25 @@ def main() -> None:
                           "inflated_guarantees"]], notes_common)
     write("players", pl, notes_common)
     write("team_seasons", ts, notes_common + ["Team record by season from nflverse games (completed games only)."])
+    write("game_log", gl, notes_common + ["Current-season games from nflverse weekly player stats; started/result from nflverse games. "
+                                          "moved = how he joined this team mid-season (trade per nflverse trades.csv or OTC 'Traded' status, otherwise signed)."])
     print("roles:", sh[sh.year >= FIRST_STATS_SEASON].role.value_counts().to_dict())
     print("arrival:", sh[sh.year >= FIRST_STATS_SEASON].arrival.value_counts().to_dict())
     print("dead exit $M:", (d.groupby("exit").cap_charge.sum() / 1e6).round(0).to_dict())
     for name in ["Russell Wilson", "Baker Mayfield", "Deshaun Watson", "Kirk Cousins"]:
         print(name, sh[sh.player == name][["year", "franchise", "arrival", "role"]].values.tolist()[-8:])
     write("cap_factors", caps, ["OTC inflation factor: current-season cap divided by that year's cap."])
+
+    # what the data covers: the last week whose games have all been played, plus any games after it
+    sched = pd.read_csv(DATA / "nflverse_cache" / "games.csv", usecols=["season", "week", "game_type", "gameday", "result"])
+    sched = sched[sched.season == sched.loc[sched.result.notna(), "season"].max()]
+    wk = sched.groupby("week").agg(n=("result", "size"), done=("result", "count"), post=("game_type", lambda g: (g != "REG").any()))
+    full = wk[(wk.done == wk.n) & (wk.done > 0)]
+    through_week = int(full.index.max()) if len(full) else 0
+    later = sched[(sched.week > through_week) & sched.result.notna()]
+    through = {"through_season": int(sched.season.iloc[0]), "through_week": through_week,
+               "through_type": "playoffs" if through_week and bool(wk.at[through_week, "post"]) else "regular",
+               "through_extra_games": int(len(later)), "through_date": str(sched.loc[sched.result.notna(), "gameday"].max())}
 
     # site settings the page reads instead of hardcoding years and the cap
     # a season is complete once its Super Bowl is in the games data
@@ -350,6 +434,9 @@ def main() -> None:
         "first_season": int(sh.year.min()),
         "first_stats_season": FIRST_STATS_SEASON,
         "cap_current": round(cap_amount * float(factor.loc[cap_year])),
+        # what the data covers: the latest completed game, and when this build ran
+        **through,
+        "refreshed": date.today().isoformat(),
     }])
     write("meta", meta, [f"Current cap = the {cap_year} league cap (${cap_amount / 1e6:.1f}M) times OTC's {cap_year} "
                          "inflation factor, i.e. the current-season cap OTC's inflated dollars are expressed in."])

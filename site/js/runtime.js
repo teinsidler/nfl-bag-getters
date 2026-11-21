@@ -1,7 +1,7 @@
 // Tiny runtime for the dashboard's views: the same dash.* API the page was written against
 // (calc, draw, data, params, setParams, onData), backed by static JSON in data/.
 (function () {
-  const DATASETS = ['meta', 'seasons', 'dead_money', 'contracts', 'players', 'team_seasons'];
+  const DATASETS = ['meta', 'seasons', 'dead_money', 'contracts', 'players', 'team_seasons', 'game_log'];
   const DEFAULTS = { mode: 'all', money: 'cash', perf: 'total_tds', from: null, to: null, minatt: 500, sort: 'most', qb: '',
     csort: 'inflated_apy', view: 'qbs', part: 'reg', team: '', color: 'role', posort: 'po_wins', minstart: 0, sb: 'any' };
 

@@ -74,7 +74,7 @@
       tr.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); BG.open(r.player_url); } };
       const c0 = tr.insertCell(); c0.className = 'bg-rank'; c0.textContent = i + 1;
       const c1 = tr.insertCell(); c1.className = 'bg-name'; c1.append(BG.span(r.player, null, null, null, 'bg-qblink'));
-      const sub = document.createElement('span'); sub.className = 'bg-meta'; sub.textContent = r.team + ' · ' + (r.first === r.last ? r.first : r.first + '–' + r.last); c1.append(sub);
+      const sub = document.createElement('span'); sub.className = 'bg-meta'; sub.textContent = (r.first === r.last ? r.first : r.first + '–' + r.last) + ' · ' + BG.teamLabel(r.player_url, r.team, r.last); c1.append(sub);
       const c2 = tr.insertCell(); c2.className = 'num'; c2.textContent = BG.fmtMoney(r.money);
       const c3 = tr.insertCell(); c3.className = 'num'; c3.textContent = BG.num(r.perf, BG.dec(p.perf));
       if (p.perf === 'wins') c3.textContent = p.part === 'post' ? BG.wl(r.po_wins, r.po_losses) : p.part === 'all' ? BG.wl(r.wins + r.po_wins, r.losses + r.po_losses, r.ties) : BG.wl(r.wins, r.losses, r.ties);
@@ -99,7 +99,7 @@
       const li = document.createElement('li');
       const b = document.createElement('button'); b.className = 'bg-link'; b.onclick = () => BG.open(r.player_url);
       b.append(BG.span(r.player, 'leaders', 'player', BG.where(r.player_url), 'bg-qblink'));
-      const left = document.createElement('span'); left.append(b, BG.span(r.team + ' · ' + r.seasons + (r.seasons === 1 ? ' season' : ' seasons') + ' · ' + BG.num(r.perf, BG.dec(p.perf)) + ' ' + PERF[p.perf].word, null, null, null, 'bg-meta'));
+      const left = document.createElement('span'); left.append(b, BG.span(BG.teamLabel(r.player_url, r.team, r.last) + ' · ' + r.seasons + (r.seasons === 1 ? ' season' : ' seasons') + ' · ' + BG.num(r.perf, BG.dec(p.perf)) + ' ' + PERF[p.perf].word, null, null, null, 'bg-meta'));
       li.append(left, BG.span(BG.fmtMoney(r.money), 'leaders', 'money', BG.where(r.player_url), 'num'));
       ul.append(li);
     }
@@ -189,7 +189,7 @@
       const show = (event, r) => {
         tip.attr('hidden', null).html('');
         tip.append('b').text(r.player);
-        tip.append('div').text(r.team + ' · ' + (r.first === r.last ? r.first : r.first + '–' + r.last));
+        tip.append('div').text((r.first === r.last ? r.first : r.first + '–' + r.last) + ' · ' + BG.teamLabel(r.player_url, r.team, r.last));
         tip.append('div').text(MONEY[p.money].short + ': ' + BG.fmtMoney(r.money));
         tip.append('div').text(PERF[p.perf].short + ': ' + BG.num(r.perf, BG.dec(p.perf)));
         tip.append('div').text(BG.unit(r.per_unit, p));
@@ -282,7 +282,7 @@
       tr.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); BG.open(r.player_url); } };
       const add = (t, cls) => { const td = tr.insertCell(); if (cls) td.className = cls; td.textContent = t; return td; };
       add(i + 1, 'bg-rank');
-      const n = add('', 'bg-name'); n.append(BG.span(r.player, null, null, null, 'bg-qblink')); const m = document.createElement('span'); m.className = 'bg-meta'; m.textContent = r.team + ' · ' + (r.first === r.last ? r.first : r.first + '–' + r.last); n.append(m);
+      const n = add('', 'bg-name'); n.append(BG.span(r.player, null, null, null, 'bg-qblink')); const m = document.createElement('span'); m.className = 'bg-meta'; m.textContent = BG.teamLabel(r.player_url, r.team, r.last) + ' · ' + (r.first === r.last ? r.first : r.first + '–' + r.last); n.append(m);
       add(BG.fmtMoney(r.money), 'num');
       add(BG.wl(r.po_wins, r.po_losses), 'num');
       add(BG.pct(100 * r.po_wins / r.po_starts, 0), 'num bg-hide-sm');

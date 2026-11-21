@@ -13,7 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 SRC, DATA, OUT = ROOT / "site", ROOT / "data" / "dashboard", ROOT / "_site"
-DATASETS = ["meta", "seasons", "dead_money", "contracts", "players", "team_seasons"]
+DATASETS = ["meta", "seasons", "dead_money", "contracts", "players", "team_seasons", "game_log"]
 
 
 def main() -> None:

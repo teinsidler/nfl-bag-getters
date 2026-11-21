@@ -41,7 +41,8 @@ COLS = ["game_id", "season", "season_type", "play_id", "posteam", "home_team", "
 
 def load(year: int, refresh: bool) -> pd.DataFrame:
     path = CACHE / f"play_by_play_{year}.parquet"
-    if refresh or not path.exists():
+    in_progress = year >= pd.Timestamp.today().year - (pd.Timestamp.today().month < 3)  # current season changes weekly
+    if refresh or in_progress or not path.exists():
         CACHE.mkdir(parents=True, exist_ok=True)
         r = requests.get(URL.format(year), timeout=120)
         r.raise_for_status()

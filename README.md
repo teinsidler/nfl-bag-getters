@@ -68,7 +68,18 @@ Requires Python 3.9+ (`pip install -r requirements.txt`). Run in this order:
 | 5 | `fix_profile_quirks.py` | `data/otc_profile_*_clean.csv` (applies `data/manual_overrides.csv`) |
 | 6 | `fetch_qb_wins.py` | `data/qb_game_starts.csv`, `data/qb_season_wins.csv` (records, Vegas lines, playoffs) |
 | 7 | `fetch_qb_pbp_stats.py` | `data/qb_season_pbp.csv` (WPA, turnovers, comebacks; ~0.5 GB download) |
-| 8 | `build_dashboard_data.py` | `data/dashboard/*.json` (what the site reads, incl. `meta.json`) |
+| 8 | `fetch_weekly.py` | `data/qb_week_games.csv`, `data/qb_current_team.csv`, `data/trades.csv` (this season's game logs, current teams, trades) |
+| 9 | `build_dashboard_data.py` | `data/dashboard/*.json` (what the site reads, incl. `meta.json` and `game_log.json`) |
+
+**During the season,** one command refreshes everything that changes week to week (games,
+stats, play-by-play, game logs, rosters, trades) and rebuilds the site data:
+
+```bash
+python3 refresh_current_season.py   # then commit data/ and push; the site redeploys itself
+```
+
+It does not re-scrape Over The Cap; run `fetch_qb_profiles.py --refresh` and step 5 for new
+contracts. The site header shows the last game in the data and the refresh date.
 
 Downloads are cached under `data/nflverse_cache/` and `data/otc_profiles_html/`, which
 are not committed.
@@ -78,6 +89,10 @@ Each March, update `LEAGUE_CAP` in `build_dashboard_data.py` to the new league c
 ## Coverage and caveats
 
 - Stats start in 1999 (nflverse play-by-play). Paid seasons before that have no production.
+- Trades and pickups: when a quarterback changes teams mid-season, Over The Cap files the
+  season under his last team. The Teams view credits each team with the starts he made there
+  and the money it paid him before the move (OTC lists that as dead money). Trades come from
+  nflverse's trades list, which lags in-season, backed up by OTC's "Traded" contract status.
 - A game's "starter" is the QB who took most of the snaps, so rest-game records can differ
   slightly from Pro-Football-Reference.
 - Contract figures are Over The Cap's. Cash paid includes signing bonuses in the year paid;

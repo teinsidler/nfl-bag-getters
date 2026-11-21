@@ -336,3 +336,14 @@
   .bg-show-sm { display: none; }
   @media (max-width: 560px) { .bg-team-head { grid-template-columns: 1fr; } .bg-show-sm { display: block; margin: 0; } }
   @media (prefers-reduced-motion: reduce) { .bg-sankey .dd-flow { transition: none; } }
+
+/* data freshness line under the title */
+.bg-fresh { margin: 2px 0 10px; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.bg-fresh:empty { display: none; }
+/* game log: hidden when the quarterback has no games this season; team changes get their own row */
+.bg-games.is-empty { display: none; }
+.bg-table tr.bg-move td { padding-top: 10px; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); font-weight: var(--cds-font-weight-medium); }
+.bg-table tr.bg-move td::before { content: "↪ "; }
+.bg-table td.bg-res-w { color: var(--color-ok); }
+.bg-table td.bg-res-l { color: var(--color-bad); }
+.bg-table td.bg-res { white-space: nowrap; }

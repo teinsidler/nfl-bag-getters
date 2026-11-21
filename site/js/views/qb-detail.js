@@ -18,6 +18,7 @@
       ' · Career earnings ', BG.span(BG.money(r.career_earnings), 'players', 'career_earnings', w)
     );
     if (r.current_contract) el.append(' · Current deal: ' + r.current_contract);
+    if (r.current_team) el.append(' · Now with the ' + r.current_team + (r.current_week ? ' (week ' + r.current_week + ')' : ''));
   });
 
   function qbTotals() {
@@ -162,6 +163,14 @@
     rows.sort((a, b) => a.year - b.year);
     let total = 0;
     for (const d of rows) {
+      if (d.played_role) {
+        // money paid while he was still playing there, before a mid-season move: not dead cap left behind
+        const li = document.createElement('li'), left = document.createElement('span');
+        left.append(d.team + ' ' + d.year, BG.span('paid while he played there, then ' + ({ traded: 'traded', released: 'released' }[d.exit] || 'moved on') + ' mid-season · not counted as dead cap', null, null, null, 'bg-meta'));
+        li.append(left, BG.span(BG.money(d.cap_charge), null, null, null, 'num bg-meta'));
+        ul.append(li);
+        continue;
+      }
       total += d.cap_charge || 0;
       const w = BG.where(d.player_url) + '&team=' + encodeURIComponent(d.team) + '&year=' + d.year;
       const li = document.createElement('li');
@@ -173,5 +182,38 @@
     const li = document.createElement('li'); li.style.fontWeight = '600';
     li.append('Total', BG.span(BG.money(total), null, null, null, 'num'));
     ul.append(li);
+  });
+
+  // ---- current season, game by game ----
+  dash.draw('qb-games-title', (el) => {
+    const g = mine('game_log'), M = (dash.data('meta').data || [])[0];
+    const season = g && g.length ? g[0].season : M && M.current_season;
+    el.textContent = season ? season + ' season, game by game' : 'This season, game by game';
+  });
+  dash.draw('qb-games', (tb) => {
+    const rows = mine('game_log'), wrap = tb.closest('.bg-games');
+    tb.replaceChildren();
+    if (wrap) wrap.classList.toggle('is-empty', !rows || !rows.length);
+    if (!rows || !rows.length) return;
+    rows.sort((a, b) => (a.season_type === b.season_type ? a.week - b.week : a.season_type === 'REG' ? -1 : 1));
+    rows.forEach((g, i) => {
+      if (g.moved || (i === 0 ? false : rows[i - 1].team !== g.team)) {
+        const tr = tb.insertRow(); tr.className = 'bg-move';
+        const td = tr.insertCell(); td.colSpan = 10;
+        td.textContent = g.moved === 'traded' ? 'Traded to the ' + g.team + (g.moved_from ? ' by the ' + g.moved_from : '')
+          : 'Signed with the ' + g.team + (g.moved_from ? ' after leaving the ' + g.moved_from : '');
+      }
+      const tr = tb.insertRow(); tr.dataset.key = g.player_url + ',' + g.season_type + g.week;
+      const add = (t, c) => { const td = tr.insertCell(); td.textContent = t; if (c) td.className = c; return td; };
+      add(g.season_type === 'POST' ? ({ 19: 'Wild card', 20: 'Divisional', 21: 'Conference', 22: 'Super Bowl' }[g.week] || 'Playoffs') : g.week);
+      add((g.home === false ? '@ ' : g.home === true ? 'vs ' : '') + (g.opponent || '—'));
+      const res = g.outcome ? g.outcome + ' ' + g.points_for + '-' + g.points_against : '—';
+      add(g.started ? res : res + ' · off the bench', 'bg-res ' + (g.outcome === 'W' ? 'bg-res-w' : g.outcome === 'L' ? 'bg-res-l' : ''));
+      add(BG.num(g.completions) + '/' + BG.num(g.attempts), 'num');
+      add(BG.num(g.passing_yards), 'num'); add(BG.num(g.passing_tds), 'num'); add(BG.num(g.interceptions), 'num');
+      add(BG.num(g.sacks), 'num bg-hide-sm');
+      add(BG.num(g.rushing_yards) + (g.rushing_tds ? ' · ' + g.rushing_tds + ' TD' : ''), 'num bg-hide-sm');
+      add(BG.num(g.epa, 1), 'num bg-hide-sm');
+    });
   });
 })();

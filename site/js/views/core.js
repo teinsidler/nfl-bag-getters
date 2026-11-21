@@ -101,7 +101,7 @@
         // a charge can land after the QB left, in a season with no pay row of their own
         const r = get(d.player_url, d.player), f = d.inflation_factor || 1;
         if (r.team == null) { r.team = d.team; r.first = r.first ?? d.year; r.last = r.last ?? d.year; }
-        r.dead += d.cap_charge || 0; r.dead_cash += d.cash_paid || 0;
+        if (!d.played_role) { r.dead += d.cap_charge || 0; r.dead_cash += d.cash_paid || 0; }
         r.cash += d.cash_paid || 0; r.cash_adj += (d.cash_paid || 0) * f;
         r.cap += d.cap_charge || 0; r.cap_share += (d.cap_charge || 0) * f / CAP * 100;
       }
@@ -159,6 +159,30 @@
     return g.status === 'ok' && g.data && g.data[0] ? g.data[0] : null;
   };
   BG.where = (url) => 'player_url=' + encodeURIComponent(url).replace(/%2F/g, '/').replace(/%3A/g, ':');
+  // team now (latest roster week of the current season), for labels like "Falcons · 2024–2025 · now Vikings"
+  let nowMap = null, nowSrc = null;
+  BG.nowTeam = (url) => {
+    const pl = dash.data('players').data;
+    if (!Array.isArray(pl)) return null;
+    if (nowSrc !== pl) { nowSrc = pl; nowMap = new Map(pl.map((r) => [r.player_url, r.current_team])); }
+    return nowMap.get(url) || null;
+  };
+  BG.teamLabel = (url, team, last) => {
+    const now = BG.nowTeam(url);
+    return now && now !== team ? team + ' · now ' + now : team;
+  };
+
+  // "Data through week 11 of 2026 (games to Nov 19) · refreshed Nov 21, 2026"
+  dash.draw('fresh', (el) => {
+    const M = (dash.data('meta').data || [])[0];
+    if (!M || !M.through_week) { el.textContent = ''; return; }
+    const d = (s) => new Date(s + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const PO = { 19: 'the wild-card round', 20: 'the divisional round', 21: 'the conference championships', 22: 'the Super Bowl' };
+    const wk = M.through_type === 'playoffs' ? (PO[M.through_week] || 'the playoffs') + ' of the ' + M.through_season + ' season' : 'week ' + M.through_week + ' of ' + M.through_season;
+    const extra = M.through_extra_games ? ', plus ' + M.through_extra_games + ' game' + (M.through_extra_games === 1 ? '' : 's') + ' of week ' + (M.through_week + 1) : '';
+    el.textContent = 'Data through ' + wk + extra + ' (last game ' + d(M.through_date).replace(/, \d{4}$/, '') + ') · refreshed ' + d(M.refreshed);
+  });
+
   // ---- motion: one place for timing, and none at all for people who ask for reduced motion ----
   BG.reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
   BG.dur = (ms) => (BG.reduced() ? 0 : ms);

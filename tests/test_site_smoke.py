@@ -69,6 +69,7 @@ def test_quarterbacks_view(page):
     assert page.locator('[data-draw="scatter"] circle').count() > 50
     years = page.locator("#to option").count()
     assert years >= 27, "season options come from data/meta.json"
+    assert page.locator('[data-draw="fresh"]').inner_text().startswith("Data through"), "freshness label"
     assert page.outside == [], f"requests outside the site: {page.outside}"
 
 
