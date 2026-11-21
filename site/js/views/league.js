@@ -58,7 +58,7 @@
   dash.draw('th-perf', (el) => { el.textContent = PERF[P().perf].short; });
   dash.draw('th-unit', (el) => { el.textContent = 'Per ' + PERF[P().perf].per; });
 
-  dash.draw('board', (tb) => {
+  dash.draw('board', BG.flipDraw((tb) => {
     const rows = BG.ranked(), p = P();
     const L = dash.data('leaders');
     if (L.status === 'error') { tb.replaceChildren(); const tr = tb.insertRow(); const td = tr.insertCell(); td.colSpan = 6; td.className = 'bg-empty'; td.textContent = 'The pay data didn’t load, so the ranking can’t be shown.'; return; }
@@ -84,7 +84,7 @@
       const bar = document.createElement('div'); bar.className = 'bg-bar' + (rate && !BG.isBag(r, rate, p) ? ' good' : '');
       bar.style.width = Math.max(2, r.per_unit / max * 100) + '%'; c5.append(bar);
     });
-  });
+  }));
 
   dash.draw('zero-title', (el) => { el.textContent = BG.inv(P()) ? 'Paid, with no turnovers' : 'Paid, but no positive production'; });
   dash.draw('zero-note', (el) => { const p = P(); if (BG.inv(p)) { el.textContent = 'Quarterbacks paid during ' + range(p) + ' with no turnovers' + (p.part === 'post' ? ' in the playoff games they started' : '') + ', so pay per turnover can’t be computed. Ignores the attempts minimum.'; return; } el.textContent = 'Quarterbacks paid during ' + range(p) + ' whose ' + PERF[p.perf].word + (p.perf === 'wpa' ? ' came to under 0.5' : ' came to zero or less') + (PERF[p.perf].part && p.part === 'post' ? ' in the playoffs (among those who started a playoff game)' : '') + ', so they can’t be ranked per unit. Ignores the attempts minimum.'; });
@@ -131,6 +131,7 @@
       const fx = (v) => pctM ? BG.pct(v, 0) : (v === 0 ? '$0' : v >= 1e9 ? '$' + d3.format('~g')(v / 1e9) + 'B' : '$' + d3.format('~g')(v / 1e6) + 'M');
       const xMax = d3.max(rows, (r) => r.money), yMax = d3.max(rows, (r) => r.perf);
       const x0 = d3.scaleLinear().domain([0, xMax * 1.05]).nice(), y0 = d3.scaleLinear().domain([0, yMax * 1.08]).nice();
+      svg.attr('viewBox', null); // measure in plain pixels, not the previous drawing's scale
       const tmp = svg.append('g').attr('class', 'axis');
       const yt = y0.ticks(5).map((t) => { const n = tmp.append('text').text(BG.tick(t)); const w = n.node().getComputedTextLength(); n.remove(); return w; });
       tmp.remove();
@@ -267,7 +268,7 @@
     const w = d3.sum(rows, (r) => r.po_wins), l = d3.sum(rows, (r) => r.po_losses);
     el.textContent = BG.num(rows.length) + ' quarterbacks in your selection started a playoff game during ' + range(p) + ' (' + BG.wl(w, l) + ' combined). Money is the whole seasons they were paid, so "per playoff win" shows how much of a season’s pay each postseason win cost. Ignores the attempts minimum.';
   });
-  dash.draw('po-table', (tb) => {
+  dash.draw('po-table', BG.flipDraw((tb) => {
     const L = dash.data('leaders'), p = P();
     tb.replaceChildren();
     if (L.status !== 'ok' || !Array.isArray(L.data)) return;
@@ -289,7 +290,7 @@
       add(r.per_po_win == null ? 'No wins' : BG.fmtMoney(r.per_po_win), 'num');
       add(BG.wl(r.wins, r.losses, r.ties), 'num bg-hide-sm');
     });
-  });
+  }));
 
   // ---- contracts table ----
   dash.draw('ctable', (tb) => {

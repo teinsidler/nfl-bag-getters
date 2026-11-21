@@ -174,20 +174,65 @@
     sel.transition('num').duration(380).ease(BG.EASE).textTween(() => (t) => fmt(i(t)));
   };
 
+  // table rows slide from their old place to their new one (FLIP); rows that are new fade in
+  BG.flipDraw = (draw) => (tb) => {
+    const D = BG.dur(420), live = D && tb.offsetParent !== null;
+    const before = new Map();
+    if (live) for (const tr of tb.rows) if (tr.dataset.key) before.set(tr.dataset.key, tr.getBoundingClientRect().top);
+    draw(tb);
+    if (!live || !before.size) return;
+    let moved = 0;
+    const plan = [...tb.rows].filter((tr) => tr.dataset.key).map((tr) => {
+      const old = before.get(tr.dataset.key), dy = old == null ? null : old - tr.getBoundingClientRect().top;
+      if (old == null || Math.abs(dy) > 1) moved++;
+      return [tr, dy];
+    });
+    if (!moved) return; // same rows in the same order: nothing to show
+    for (const [tr, dy] of plan) {
+      if (dy == null) tr.animate([{ opacity: 0 }, { opacity: 1 }], { duration: D * 0.6, delay: D * 0.35, easing: 'ease-out', fill: 'backwards' });
+      else if (Math.abs(dy) > 1) tr.animate([{ transform: `translateY(${dy}px)` }, { transform: 'none' }], { duration: D, easing: 'cubic-bezier(.2,.8,.2,1)' });
+    }
+  };
+  // a chart whose shape changes (another team, another color mode): fade the old drawing out over the new one.
+  // Call before clearing the svg; sig names what the chart shows, so redraws that change nothing don't fade.
+  BG.crossfade = (el, svg, sig) => {
+    const changed = el.__sig != null && el.__sig !== sig, D = BG.dur(380);
+    el.__sig = sig;
+    el.querySelectorAll(':scope > .bg-ghost').forEach((n) => n.remove());
+    const node = svg.node();
+    if (!changed || !D || !node.childNodes.length || node.getBoundingClientRect().height === 0) return;
+    const ghost = node.cloneNode(true), r = node.getBoundingClientRect(), er = el.getBoundingClientRect();
+    ghost.classList.add('bg-ghost'); ghost.removeAttribute('role'); ghost.setAttribute('aria-hidden', 'true');
+    Object.assign(ghost.style, { position: 'absolute', margin: '0', pointerEvents: 'none',
+      left: (r.left - er.left - el.clientLeft + el.scrollLeft) + 'px', top: (r.top - er.top - el.clientTop + el.scrollTop) + 'px',
+      width: r.width + 'px', height: r.height + 'px' });
+    el.append(ghost);
+    ghost.animate([{ opacity: 1 }, { opacity: 0 }], { duration: D, easing: 'ease-out', fill: 'forwards' }).onfinish = () => ghost.remove();
+    setTimeout(() => ghost.remove(), D + 150); // also if animations are paused
+    node.animate([{ opacity: 0 }, { opacity: 1 }], { duration: D, easing: 'ease-out' });
+  };
+
   // where a quarterback was opened from, so closing the panel puts the reader back there
   let returnTo = null;
   BG.open = (url) => {
     if (!P().qb) {
       const a = document.activeElement, row = a && a.closest ? a.closest('tr.bg-row') : null;
-      returnTo = { key: row ? row.dataset.key : null, where: row ? row.closest('[data-draw]').dataset.draw : null, y: window.scrollY };
+      returnTo = { key: row ? row.dataset.key : null, where: row ? row.closest('[data-draw]').dataset.draw : null, y: window.scrollY, view: P().view };
     }
-    dash.setParams({ qb: url });
+    const lostFocus = document.activeElement && document.activeElement !== document.body;
+    dash.setParams({ qb: url, view: 'qbs' }); // the profile lives on the Quarterbacks view
     const el = document.getElementById('qb');
-    if (el) requestAnimationFrame(() => el.scrollIntoView({ behavior: BG.reduced() ? 'auto' : 'smooth', block: 'start' }));
+    if (!el) return;
+    // if the control that opened it is now hidden (e.g. a team-table row), move focus to the profile
+    if (lostFocus && (document.activeElement === document.body || document.activeElement.closest('[hidden]'))) {
+      const h = el.querySelector('[data-draw="qb-name"]');
+      if (h) { h.tabIndex = -1; h.focus({ preventScroll: true }); }
+    }
+    requestAnimationFrame(() => el.scrollIntoView({ behavior: BG.reduced() ? 'auto' : 'smooth', block: 'start' }));
   };
   BG.close = () => {
     const back = returnTo; returnTo = null;
-    dash.setParams({ qb: '' });
+    dash.setParams(back && back.view ? { qb: '', view: back.view } : { qb: '' });
     if (!back) return;
     const box = back.where && document.querySelector('[data-draw="' + back.where + '"]');
     const row = box && !box.closest('[hidden]') ? [...box.querySelectorAll('tr.bg-row')].find((tr) => tr.dataset.key === back.key) : null;
@@ -216,7 +261,14 @@
     document.querySelectorAll('[data-' + k + ']').forEach((b) => b.addEventListener('click', () => {
       document.querySelectorAll('[data-' + k + ']').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
       pending = Object.assign(pending || {}, { [k]: b.dataset[k] });
-      requestAnimationFrame(() => setTimeout(() => { if (pending) { const o = pending; pending = null; setP(o); } }, 0));
+      const flush = () => {
+        if (!pending) return;
+        const o = pending; pending = null;
+        if (o.view === 'teams') { o.qb = ''; returnTo = null; } // profiles belong to the Quarterbacks view
+        setP(o);
+      };
+      requestAnimationFrame(() => setTimeout(flush, 0));
+      setTimeout(flush, 60); // in case frames are paused (background tab, hidden window)
     }));
   }
   const sel = (id, name, num) => document.querySelectorAll('#' + id).forEach((el) => el.addEventListener('change', () => {
@@ -263,6 +315,6 @@
     for (const [id, v] of [['money', p.money], ['perf', p.perf], ['from', p.from], ['to', p.to], ['minatt', p.minatt], ['csort', p.csort], ['posort', p.posort], ['minstart', p.minstart], ['sb', p.sb]]) {
       document.querySelectorAll('#' + id).forEach((el) => { if (document.activeElement !== el) el.value = String(v); });
     }
-    document.querySelectorAll('#qb').forEach((el) => { el.hidden = !p.qb; });
+    document.querySelectorAll('#qb').forEach((el) => { el.hidden = !p.qb || p.view === 'teams'; });
   });
 })();

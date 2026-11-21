@@ -223,6 +223,7 @@
     mount: (el) => ({ svg: d3.select(el).append('svg').attr('role', 'img'), tip: d3.select(el).append('div').attr('class', 'bg-tip').attr('hidden', true) }),
     update: (el, { svg, tip }) => {
       const rows = flows(), p = P();
+      BG.crossfade(el, svg, [curTeam(), p.color, p.money, p.mode, p.from, p.to].join('|'));
       svg.selectAll('*').remove();
       el.querySelectorAll('.bg-empty').forEach((n) => n.remove());
       if (!rows) { svg.attr('height', 40); return; }
@@ -262,7 +263,9 @@
           const room = W - (n.x + L.nodeW + 8) - 2;
           BG.svgName(t, n.label);
           if (t.node().getComputedTextLength() > room) BG.svgName(t, short(n.full, true));
-          t.on('click', () => BG.open(n.url));
+          t.attr('tabindex', 0).attr('role', 'link').attr('aria-label', 'Open ' + (n.full || n.label) + ' profile')
+            .on('click', () => BG.open(n.url))
+            .on('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); BG.open(n.url); } });
         }
         lab.append('text').attr('class', 'dd-qty').attr('x', n.x + L.nodeW + 8).attr('y', cy + 11).text(fm(n.value) + ' · ' + pctOf(n.value));
       }
@@ -332,7 +335,7 @@
     el.textContent = parts.map((x) => x[0].toUpperCase() + x.slice(1)).join(' ');
   });
 
-  dash.draw('team-table', (tb) => {
+  dash.draw('team-table', BG.flipDraw((tb) => {
     const f = flows(), p = P();
     tb.replaceChildren();
     if (!f) return;
@@ -347,7 +350,7 @@
       po_wins: d3.sum(v, (r) => r.po_wins), po_losses: d3.sum(v, (r) => r.po_losses)
     })).sort((a, b) => b.money - a.money);
     for (const q of qbs) {
-      const tr = tb.insertRow(); tr.className = 'bg-row'; tr.tabIndex = 0;
+      const tr = tb.insertRow(); tr.className = 'bg-row'; tr.tabIndex = 0; tr.dataset.key = q.url;
       tr.onclick = () => BG.open(q.url);
       tr.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); BG.open(q.url); } };
       const add = (t, cls) => { const td = tr.insertCell(); if (cls) td.className = cls; td.textContent = t; return td; };
@@ -357,13 +360,14 @@
       add(fm(q.money), 'num'); add(BG.pct(100 * q.money / tot, 0), 'num'); add(q.dead ? fm(q.dead) : '—', 'num bg-hide-sm');
       add(q.starts ? BG.wl(q.wins, q.losses, q.ties) : '—', 'num'); add(q.po_wins + q.po_losses ? BG.wl(q.po_wins, q.po_losses) : '—', 'num bg-hide-sm');
     }
-  });
+  }));
 
   dash.draw('teambars-title', (el) => { const p = P(); el.textContent = 'Quarterback ' + MONEY[p.money].label.toLowerCase() + ' by team, ' + range(p); });
   dash.draw('team-bars', {
     mount: (el) => ({ legend: d3.select(el).append('div').attr('class', 'bg-legend').style('margin-bottom', '8px'), svg: d3.select(el).append('svg').attr('role', 'img').attr('class', 'bg-tbar'), tip: d3.select(el).append('div').attr('class', 'bg-tip').attr('hidden', true) }),
     update: (el, { svg, tip, legend }) => {
       const t = totals(), p = P();
+      BG.crossfade(el, svg, [p.money, p.mode, p.from, p.to].join('|'));
       svg.selectAll('*').remove(); legend.selectAll('*').remove();
       if (t) for (const [k, l] of ROLES) if (t.some((r) => r[k] > 0)) { const s = legend.append('span'); s.append('i').attr('class', 'sw-flow').style('background', colorOf('role', k)); s.append('span').text(l); }
       if (!t || !t.length) { svg.attr('height', 40); return; }

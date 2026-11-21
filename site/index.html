@@ -20,8 +20,9 @@
 <div class="bg">
   <header id="intro">
     <h1>QB Bag Getters</h1>
-    <p class="bg-lede" data-draw="lede">—</p>
-    <p class="bg-sub">Pay from Over The Cap, production from nflverse (1999 on). Pick how to count the money and the production, and the dashboard ranks every quarterback by what teams paid for each unit they delivered. Tap any quarterback to see their money against their play, season by season.</p>
+    <p class="bg-lede bg-only-qbs" data-draw="lede">—</p>
+    <p class="bg-sub bg-only-qbs">Pay from Over The Cap, production from nflverse (1999 on). Pick how to count the money and the production, and the dashboard ranks every quarterback by what teams paid for each unit they delivered. Tap any quarterback to see their money against their play, season by season.</p>
+    <p class="bg-sub bg-only-teams" hidden>Pay from Over The Cap. Pick a team and a range of seasons to see where its quarterback money went: to the starter, spot starters, backups, or dead cap for quarterbacks no longer on the deal. Tap a quarterback to open their profile.</p>
   </header>
 
   <nav class="bg-seg bg-viewseg" role="group" aria-label="View">
@@ -67,7 +68,7 @@
         <select class="dash-select" id="to" aria-label="Last season"></select>
       </div>
     </div>
-    <div class="bg-field bg-controls-wide"><span id="part-label">Games counted</span>
+    <div class="bg-field bg-controls-wide bg-only-qbs"><span id="part-label">Games counted</span>
       <div class="bg-seg" role="group" aria-labelledby="part-label">
         <button type="button" data-part="reg" aria-pressed="true">Regular season</button>
         <button type="button" data-part="post" aria-pressed="false">Playoffs</button>
@@ -75,7 +76,7 @@
       </div>
       <small class="bg-hint" data-draw="part-note">—</small>
     </div>
-    <label class="bg-field"><span>Look up a quarterback</span>
+    <label class="bg-field bg-only-qbs"><span>Look up a quarterback</span>
       <select class="dash-select" id="pick" data-draw="pick" data-source="players"></select>
     </label>
     <label class="bg-field bg-only-qbs"><span>Seasons as primary starter</span>
@@ -360,13 +361,13 @@
       <li>Cash paid is the season's cash from Over The Cap plus cash paid out as dead money after a release or trade. Cap cost is the season's cap hit plus dead cap charged to the team.</li>
       <li><span data-capyear>2026</span> cap dollars multiply each year's money by how much the salary cap has grown since then, using Over The Cap's own inflation factors.</li>
       <li>Share of team cap adds up each season's cap hit as a percentage of the cap, so three seasons at 10% count as 30%.</li>
-      <li>Production comes from nflverse and starts in 1999. A paid season with no stats counts as zero production. EPA (expected points added) adds passing and rushing EPA.</li>
-      <li>Wins and losses are the quarterback's record as the starter. nflverse credits a game to the quarterback who took most of the snaps, so a starter pulled early in a rest game loses that start. Regular-season and playoff wins are counted separately; "Games counted" picks which one wins, WPA and turnovers use. Other production stats are regular season only.</li>
-      <li>WPA (win probability added) sums how much each of a quarterback's dropbacks and designed runs changed his team's chance of winning, from nflverse's win-probability model. Turnovers are interceptions plus fumbles lost. For turnovers, more money per turnover is better, so the biggest bag getters are the ones paid least per turnover.</li>
-      <li>"Seasons as primary starter" counts seasons in your range where the quarterback made the most starts for his team. The Super Bowl filter also looks only at your range of seasons. Both narrow every ranking, list and chart in the quarterback view.</li>
-      <li>On the team page, "How he arrived" is decided at the start of each stint with a team: drafted or rookie deal here, signed as a free agent (including waiver claims), or traded for (the contract before his first one with the team ended in a trade). Dead cap is split by how the contract ended: traded away, or released, retired or void years accelerating.</li>
-      <li>Team page roles: the primary starter made the most starts for that team that season, a spot starter made at least one, a backup played without starting, and "didn't play" appeared in no games. Dead cap is money charged for a quarterback no longer on that deal. A season's pay sits with the team Over The Cap lists for that season, so a mid-season trade counts under one team.</li>
-      <li>Quarterbacks without a season-by-season pay history on Over The Cap (mostly short-stint backups) are not ranked. <span data-inprogress>The <span data-capyear>2026</span> season is in progress, so its full-year pay sits beside a partial season of stats.</span></li>
+      <li class="bg-only-qbs">Production comes from nflverse and starts in 1999. A paid season with no stats counts as zero production. EPA (expected points added) adds passing and rushing EPA.</li>
+      <li class="bg-only-qbs">Wins and losses are the quarterback's record as the starter. nflverse credits a game to the quarterback who took most of the snaps, so a starter pulled early in a rest game loses that start. Regular-season and playoff wins are counted separately; "Games counted" picks which one wins, WPA and turnovers use. Other production stats are regular season only.</li>
+      <li class="bg-only-qbs">WPA (win probability added) sums how much each of a quarterback's dropbacks and designed runs changed his team's chance of winning, from nflverse's win-probability model. Turnovers are interceptions plus fumbles lost. For turnovers, more money per turnover is better, so the biggest bag getters are the ones paid least per turnover.</li>
+      <li class="bg-only-qbs">"Seasons as primary starter" counts seasons in your range where the quarterback made the most starts for his team. The Super Bowl filter also looks only at your range of seasons. Both narrow every ranking, list and chart in the quarterback view.</li>
+      <li class="bg-only-teams">On the team page, "How he arrived" is decided at the start of each stint with a team: drafted or rookie deal here, signed as a free agent (including waiver claims), or traded for (the contract before his first one with the team ended in a trade). Dead cap is split by how the contract ended: traded away, or released, retired or void years accelerating.</li>
+      <li class="bg-only-teams">Team page roles: the primary starter made the most starts for that team that season, a spot starter made at least one, a backup played without starting, and "didn't play" appeared in no games. Dead cap is money charged for a quarterback no longer on that deal. A season's pay sits with the team Over The Cap lists for that season, so a mid-season trade counts under one team.</li>
+      <li class="bg-only-qbs">Quarterbacks without a season-by-season pay history on Over The Cap (mostly short-stint backups) are not ranked. <span data-inprogress>The <span data-capyear>2026</span> season is in progress, so its full-year pay sits beside a partial season of stats.</span></li>
     </ul>
   </details>
 </div>
