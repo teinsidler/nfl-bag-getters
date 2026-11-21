@@ -5,7 +5,7 @@ fetch_qb_profiles.py and fix_profile_quirks.py.
 
 Also reads fetch_qb_wins.py's qb_game_starts.csv and fetch_qb_pbp_stats.py's qb_season_pbp.csv.
 
-Writes data/dashboard/{seasons,dead_money,contracts,players,cap_factors,team_seasons}.json, each
+Writes data/dashboard/{seasons,dead_money,contracts,players,cap_factors,team_seasons,meta}.json, each
 {"rows": [...], "meta": [...]}; meta carries this script's source so readers can check it.
 
 Rules
@@ -45,6 +45,8 @@ DATA = Path(__file__).parent / "data"
 OUT = DATA / "dashboard"
 ROOKIE_TYPES = {"Drafted", "UDFA"}
 FIRST_STATS_SEASON = 1999
+# latest league salary cap known here (year, dollars); update each March when the NFL sets the new cap
+LEAGUE_CAP = (2025, 279.2e6)
 # franchise names: OTC nicknames and nflverse abbreviations (relocations folded in)
 OTC_FRANCHISE = {"Redskins": "Washington", "Commanders": "Washington", "Washington": "Washington", "Oilers": "Titans"}
 ABBR = {"ARI": "Cardinals", "ATL": "Falcons", "BAL": "Ravens", "BUF": "Bills", "CAR": "Panthers", "CHI": "Bears",
@@ -337,6 +339,20 @@ def main() -> None:
     for name in ["Russell Wilson", "Baker Mayfield", "Deshaun Watson", "Kirk Cousins"]:
         print(name, sh[sh.player == name][["year", "franchise", "arrival", "role"]].values.tolist()[-8:])
     write("cap_factors", caps, ["OTC inflation factor: current-season cap divided by that year's cap."])
+
+    # site settings the page reads instead of hardcoding years and the cap
+    # a season is complete once its Super Bowl is in the games data
+    season_done = bool(((starts.season == current) & (starts.game_type == "SB")).any())
+    cap_year, cap_amount = LEAGUE_CAP
+    meta = pd.DataFrame([{
+        "current_season": current,
+        "last_complete_season": current if season_done else current - 1,
+        "first_season": int(sh.year.min()),
+        "first_stats_season": FIRST_STATS_SEASON,
+        "cap_current": round(cap_amount * float(factor.loc[cap_year])),
+    }])
+    write("meta", meta, [f"Current cap = the {cap_year} league cap (${cap_amount / 1e6:.1f}M) times OTC's {cap_year} "
+                         "inflation factor, i.e. the current-season cap OTC's inflated dollars are expressed in."])
 
 
 if __name__ == "__main__":

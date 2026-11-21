@@ -11,7 +11,9 @@ rushers and so on) on the same pay-versus-production model.
 
 ## The dashboard
 
-The dashboard (`dashboard/index.html`) has two views:
+**Live site: https://teinsidler.github.io/nfl-bag-getters/**
+
+The dashboard has two views:
 
 - **Quarterbacks:** pay vs production leaderboards (TDs, yards, EPA, starts, wins, WPA,
   turnovers and more), playoff records, dead cap, contract tables and a page per QB.
@@ -19,8 +21,39 @@ The dashboard (`dashboard/index.html`) has two views:
   range of seasons, colored by role (starter, spot starter, backup, dead cap), deal type
   or how the QB arrived (drafted, signed, traded for).
 
-It is being moved to a standalone site on GitHub Pages. See
-[`planning/REFACTOR_PLAN.md`](planning/REFACTOR_PLAN.md) for that work.
+It is a static site: plain HTML, CSS and JavaScript in `site/` (no build tools), with d3
+vendored in `site/vendor/`. `site/js/runtime.js` loads `data/*.json` and redraws the views in
+`site/js/views/` when a control changes. Season ranges and the current salary cap come from
+`data/dashboard/meta.json`, so a new season needs no front-end edits.
+Ongoing work is tracked in [`planning/REFACTOR_PLAN.md`](planning/REFACTOR_PLAN.md).
+
+### Run it locally
+
+```bash
+python3 build_site.py                  # assembles _site/ from site/ + data/dashboard/
+python3 -m http.server -d _site 8000   # then open http://localhost:8000
+```
+
+### Test
+
+```bash
+pip install -r requirements-dev.txt && python -m playwright install chromium
+python3 build_site.py && python -m pytest tests/
+```
+
+The smoke test serves `_site/` under `/nfl-bag-getters/` (as GitHub Pages does) and fails on
+any page error, failed request or error caught while drawing.
+
+### Publish
+
+Every push to `main` that touches `site/`, `data/dashboard/` or the build runs
+`.github/workflows/deploy.yml`: build, smoke test, deploy to GitHub Pages.
+
+### Offline copy
+
+```bash
+python3 export_standalone.py   # writes qb_bag_getters.html, ~4.6 MB, opens without a server
+```
 
 ## Data pipeline
 
@@ -35,18 +68,12 @@ Requires Python 3.9+ (`pip install -r requirements.txt`). Run in this order:
 | 5 | `fix_profile_quirks.py` | `data/otc_profile_*_clean.csv` (applies `data/manual_overrides.csv`) |
 | 6 | `fetch_qb_wins.py` | `data/qb_game_starts.csv`, `data/qb_season_wins.csv` (records, Vegas lines, playoffs) |
 | 7 | `fetch_qb_pbp_stats.py` | `data/qb_season_pbp.csv` (WPA, turnovers, comebacks; ~0.5 GB download) |
-| 8 | `build_dashboard_data.py` | `data/dashboard/*.json` (what the dashboard reads) |
+| 8 | `build_dashboard_data.py` | `data/dashboard/*.json` (what the site reads, incl. `meta.json`) |
 
 Downloads are cached under `data/nflverse_cache/` and `data/otc_profiles_html/`, which
 are not committed.
 
-To view the dashboard locally:
-
-```bash
-python3 dashboard/export_standalone.py   # writes dashboard/qb_bag_getters.html
-```
-
-Then open that file in a browser.
+Each March, update `LEAGUE_CAP` in `build_dashboard_data.py` to the new league cap.
 
 ## Coverage and caveats
 

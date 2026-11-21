@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en" class="is-loading">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NFL Bag Getters: QB pay vs production</title>
+<meta name="description" content="Who got the biggest bag? NFL quarterback pay from Over The Cap against production from nflverse: cost per touchdown, win, start and more, plus where every team's QB money went.">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/glass.css">
+<script defer src="vendor/d3.v7.8.5.min.js"></script>
+<script defer src="js/runtime.js"></script>
+<script defer src="js/views/core.js"></script>
+<script defer src="js/views/league.js"></script>
+<script defer src="js/views/qb-detail.js"></script>
+<script defer src="js/views/teams.js"></script>
+</head>
+<body>
+<main id="dash-root">
+<p id="load-error" class="site-error" role="alert" hidden></p>
+<div class="bg">
+  <header id="intro">
+    <h1>QB Bag Getters</h1>
+    <p class="bg-lede" data-draw="lede">—</p>
+    <p class="bg-sub">Pay from Over The Cap, production from nflverse (1999 on). Pick how to count the money and the production, and the dashboard ranks every quarterback by what teams paid for each unit they delivered. Tap any quarterback to see their money against their play, season by season.</p>
+  </header>
+
+  <nav class="bg-seg bg-viewseg" role="group" aria-label="View">
+    <button type="button" data-view="qbs" aria-pressed="true">Quarterbacks</button>
+    <button type="button" data-view="teams" aria-pressed="false">Teams</button>
+  </nav>
+
+  <section class="bg-card bg-controls" id="controls" aria-label="Filters">
+    <div class="bg-field bg-controls-wide">
+      <span id="mode-label">Contracts counted</span>
+      <div class="bg-seg" role="group" aria-labelledby="mode-label">
+        <button type="button" data-mode="all" aria-pressed="true">All contracts</button>
+        <button type="button" data-mode="veteran" aria-pressed="false">No rookie deals</button>
+        <button type="button" data-mode="rookie" aria-pressed="false">Rookie deals only</button>
+      </div>
+    </div>
+    <label class="bg-field"><span>Money</span>
+      <select class="dash-select" id="money">
+        <option value="cash">Cash paid</option>
+        <option value="cash_adj" data-captext="Cash paid, in {y} cap dollars">Cash paid, in 2026 cap dollars</option>
+        <option value="cap">Cap cost (cap hits + dead cap)</option>
+        <option value="cap_share">Share of team cap</option>
+        <option value="dead">Dead cap left behind</option>
+      </select>
+    </label>
+    <label class="bg-field bg-only-qbs"><span>Production</span>
+      <select class="dash-select" id="perf">
+        <option value="total_tds">Total TDs (pass + rush)</option>
+        <option value="passing_yards">Passing yards</option>
+        <option value="total_epa">Total EPA (pass + rush)</option>
+        <option value="starts">Starts</option>
+        <option value="wins">Wins as starter</option>
+        <option value="wpa">Win probability added (WPA)</option>
+        <option value="turnovers">Turnovers (INT + fumbles lost)</option>
+        <option value="games">Games played</option>
+        <option value="attempts">Pass attempts</option>
+      </select>
+    </label>
+    <div class="bg-field"><span id="years-label">Seasons</span>
+      <div class="bg-years" role="group" aria-labelledby="years-label">
+        <select class="dash-select" id="from" aria-label="First season"></select>
+        <span aria-hidden="true">to</span>
+        <select class="dash-select" id="to" aria-label="Last season"></select>
+      </div>
+    </div>
+    <div class="bg-field bg-controls-wide"><span id="part-label">Games counted</span>
+      <div class="bg-seg" role="group" aria-labelledby="part-label">
+        <button type="button" data-part="reg" aria-pressed="true">Regular season</button>
+        <button type="button" data-part="post" aria-pressed="false">Playoffs</button>
+        <button type="button" data-part="all" aria-pressed="false">Both</button>
+      </div>
+      <small class="bg-hint" data-draw="part-note">—</small>
+    </div>
+    <label class="bg-field"><span>Look up a quarterback</span>
+      <select class="dash-select" id="pick" data-draw="pick" data-source="players"></select>
+    </label>
+    <label class="bg-field bg-only-qbs"><span>Seasons as primary starter</span>
+      <select class="dash-select" id="minstart">
+        <option value="0">Any</option>
+        <option value="1">1+</option>
+        <option value="3">3+</option>
+        <option value="5">5+</option>
+        <option value="8">8+</option>
+        <option value="10">10+</option>
+      </select>
+    </label>
+    <label class="bg-field bg-only-qbs"><span>Super Bowls</span>
+      <select class="dash-select" id="sb">
+        <option value="any">Any quarterback</option>
+        <option value="played">Started a Super Bowl</option>
+        <option value="won">Won a Super Bowl</option>
+        <option value="won2">Won 2 or more</option>
+        <option value="none">Never started one</option>
+      </select>
+    </label>
+    <label class="bg-field bg-only-qbs"><span>Minimum pass attempts</span>
+      <select class="dash-select" id="minatt">
+        <option value="0">Any</option>
+        <option value="100">100+</option>
+        <option value="500">500+</option>
+        <option value="1000">1,000+</option>
+        <option value="2500">2,500+</option>
+      </select>
+    </label>
+  </section>
+
+  <section class="bg-card bg-qb bg-section" id="qb" hidden aria-live="polite">
+    <div class="bg-qb-head">
+      <div>
+        <h2 data-draw="qb-name">—</h2>
+        <p class="bg-sub" data-draw="qb-entry">—</p>
+      </div>
+      <button type="button" class="bg-close" id="qb-close">Close</button>
+    </div>
+    <div class="bg-qb-tiles" data-draw="qb-tiles"></div>
+    <p class="bg-sub" data-draw="qb-verdict">—</p>
+    <div>
+      <h2>Money by season</h2>
+      <p class="bg-sub">Cash paid each season. Slate blue is a veteran deal, sage a rookie deal, grey-violet a season with no contract on record. Seasons your filters leave out are faded.</p>
+      <div class="bg-mini" data-draw="qb-money" data-source="seasons"></div>
+    </div>
+    <div>
+      <h2 data-draw="qb-perf-title">—</h2>
+      <div class="bg-mini" data-draw="qb-perf" data-source="seasons"></div>
+    </div>
+    <div>
+      <h2>Season by season</h2>
+      <div class="bg-tablewrap">
+        <table class="bg-table" data-source="seasons" data-row-key="player_url,year">
+          <thead><tr>
+            <th data-field="year">Season</th>
+            <th data-field="team" class="bg-hide-sm">Team</th>
+            <th data-field="contract_class">Deal</th>
+            <th data-field="cash_paid" class="num">Cash</th>
+            <th data-field="cap_number" class="num bg-hide-sm">Cap hit</th>
+            <th data-field="cap_pct" class="num">% cap</th>
+            <th data-field="games" class="num bg-hide-sm">G</th>
+            <th data-field="total_tds" class="num">TD</th>
+            <th data-field="passing_yards" class="num bg-hide-sm">Yds</th>
+            <th data-field="total_epa" class="num">EPA</th>
+            <th data-field="passer_rating" class="num bg-hide-sm">Rate</th>
+            <th data-field="wins" class="num">W-L</th>
+            <th data-field="po_wins" class="num bg-hide-sm">Playoffs</th>
+            <th data-field="wpa" class="num bg-hide-sm">WPA</th>
+            <th data-field="turnovers" class="num bg-hide-sm">TO</th>
+          </tr></thead>
+          <tbody data-draw="qb-seasons"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="bg-split">
+      <div>
+        <h2>Contracts</h2>
+        <div class="bg-tablewrap">
+          <table class="bg-table" data-source="contracts" data-row-key="contract_id">
+            <thead><tr>
+              <th data-field="year_signed">Signed</th>
+              <th data-field="team">Team</th>
+              <th data-field="contract_type">Type</th>
+              <th data-field="apy" class="num">APY</th>
+              <th data-field="apy_pct_of_cap" class="num bg-hide-sm">% cap</th>
+              <th data-field="inflated_apy" class="num"><span data-capyear>2026</span> $ APY</th>
+              <th data-field="amount_earned" class="num bg-hide-sm">Earned</th>
+            </tr></thead>
+            <tbody data-draw="qb-contracts"></tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h2>Dead cap left behind</h2>
+        <ul class="bg-list" data-draw="qb-dead" data-source="dead_money"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-tiles bg-only-qbs" id="summary">
+    <div class="bg-card bg-tile">
+      <span class="bg-tile-label">Biggest bag getter</span>
+      <span class="bg-big" data-draw="tile-top">—</span>
+      <span class="bg-tile-note" data-draw="tile-top-note">—</span>
+    </div>
+    <div class="bg-card bg-tile">
+      <span class="bg-tile-label">Best bargain</span>
+      <span class="bg-big" data-draw="tile-low">—</span>
+      <span class="bg-tile-note" data-draw="tile-low-note">—</span>
+    </div>
+    <div class="bg-card bg-tile">
+      <span class="bg-tile-label">League rate</span>
+      <span class="bg-big" data-draw="tile-rate" data-source="league" data-field="rate">—</span>
+      <span class="bg-tile-note" data-draw="tile-rate-note">—</span>
+    </div>
+    <div class="bg-card bg-tile">
+      <span class="bg-tile-label">Quarterbacks ranked</span>
+      <span class="bg-big" data-draw="tile-n" data-source="league" data-field="qbs">—</span>
+      <span class="bg-tile-note" data-draw="tile-n-note">—</span>
+    </div>
+  </section>
+
+  <section class="bg-section bg-only-qbs" id="leaderboard">
+    <div>
+      <h2 data-draw="board-title">—</h2>
+      <p class="bg-sub">Money divided by production over the seasons you picked. The bar compares each quarterback with the league rate across everyone ranked. Tap a name for the full breakdown.</p>
+    </div>
+    <div class="bg-seg" role="group" aria-label="Sort" style="max-width: 420px">
+      <button type="button" data-sort="most" aria-pressed="true">Biggest bag getters</button>
+      <button type="button" data-sort="least" aria-pressed="false">Best bargains</button>
+    </div>
+    <div class="bg-card bg-tablewrap">
+      <table class="bg-table" data-source="leaders" data-row-key="player_url">
+        <thead><tr>
+          <th class="bg-rank">#</th>
+          <th data-field="player">Quarterback</th>
+          <th data-field="money" class="num" data-draw="th-money">—</th>
+          <th data-field="perf" class="num" data-draw="th-perf">—</th>
+          <th data-field="per_unit" class="num" data-draw="th-unit">—</th>
+          <th class="bg-barcell bg-hide-sm" aria-label="Versus league rate"></th>
+        </tr></thead>
+        <tbody data-draw="board"></tbody>
+      </table>
+    </div>
+    <div class="bg-card">
+      <h2 data-draw="zero-title">Paid, but no positive production</h2>
+      <p class="bg-sub" data-draw="zero-note">—</p>
+      <ul class="bg-list" data-draw="zero" data-source="leaders"></ul>
+    </div>
+  </section>
+
+  <section class="bg-section bg-only-qbs" id="scatter">
+    <div>
+      <h2 data-draw="scatter-title">—</h2>
+      <p class="bg-sub" data-draw="scatter-note">—</p>
+    </div>
+    <div class="bg-legend" data-draw="scatter-legend"></div>
+    <div class="bg-card bg-chart" data-draw="scatter" data-source="leaders league"></div>
+  </section>
+
+  <section class="bg-section bg-only-qbs" id="dead">
+    <div>
+      <h2>Dead cap: who cost the most after they left</h2>
+      <p class="bg-sub">Dead cap charged to teams during your seasons for deals that ended early, beside what the quarterback produced in the same seasons. Contract filter applies to the deal that created the charge.</p>
+    </div>
+    <div class="bg-card bg-chart" data-draw="deadchart" data-source="leaders"></div>
+  </section>
+
+  <section class="bg-section bg-only-qbs" id="playoffs">
+    <div>
+      <h2>Playoffs: pay against postseason wins and losses</h2>
+      <p class="bg-sub" data-draw="po-note">—</p>
+    </div>
+    <label class="bg-field" style="max-width: 320px"><span>Rank by</span>
+      <select class="dash-select" id="posort">
+        <option value="po_wins">Most playoff wins</option>
+        <option value="po_losses">Most playoff losses</option>
+        <option value="per_po_win">Most paid per playoff win</option>
+        <option value="po_wpa">Playoff WPA</option>
+      </select>
+    </label>
+    <div class="bg-card bg-tablewrap">
+      <table class="bg-table" data-source="leaders" data-row-key="player_url">
+        <thead><tr>
+          <th class="bg-rank">#</th>
+          <th data-field="player">Quarterback</th>
+          <th data-field="money" class="num" data-draw="po-th-money">—</th>
+          <th data-field="po_wins" class="num">Playoff W-L</th>
+          <th class="num bg-hide-sm">Win %</th>
+          <th data-field="po_wpa" class="num bg-hide-sm">Playoff WPA</th>
+          <th class="num">Per playoff win</th>
+          <th data-field="wins" class="num bg-hide-sm">Reg. season</th>
+        </tr></thead>
+        <tbody data-draw="po-table"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="bg-section bg-only-teams" id="teams" hidden>
+    <div class="bg-team-head">
+      <label class="bg-field"><span>Team</span>
+        <select class="dash-select" id="team" data-draw="team-pick" data-source="team_totals"></select>
+      </label>
+      <div class="bg-field"><span id="color-label">Color flows by</span>
+        <div class="bg-seg" role="group" aria-labelledby="color-label">
+          <button type="button" data-color="role" aria-pressed="true">Role on the team</button>
+          <button type="button" data-color="deal" aria-pressed="false">Deal type</button>
+          <button type="button" data-color="arrival" aria-pressed="false">How he arrived</button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h2 data-draw="team-title">—</h2>
+      <p class="bg-sub" data-draw="team-lede">—</p>
+    </div>
+    <div class="bg-tiles" data-draw="team-tiles" data-source="team_flows team_seasons"></div>
+    <div class="bg-card bg-sankey-card">
+      <p class="bg-hint bg-show-sm">Swipe the diagram sideways to see all three columns.</p>
+      <div class="bg-chart bg-sankey" data-draw="sankey" data-source="team_flows"></div>
+      <div class="bg-legend" data-draw="sankey-legend"></div>
+      <p class="bg-sub bg-aside" data-draw="sankey-aside">—</p>
+    </div>
+    <div class="bg-card bg-tablewrap">
+      <table class="bg-table">
+        <thead><tr>
+          <th>Quarterback</th>
+          <th class="bg-hide-sm">Roles</th>
+          <th class="num" data-draw="team-th-money">—</th>
+          <th class="num">Share</th>
+          <th class="num bg-hide-sm">Dead cap</th>
+          <th class="num">W-L started</th>
+          <th class="num bg-hide-sm">Playoffs</th>
+        </tr></thead>
+        <tbody data-draw="team-table" data-source="team_flows"></tbody>
+      </table>
+    </div>
+    <div>
+      <h2 data-draw="teambars-title">—</h2>
+      <p class="bg-sub">Every franchise's quarterback money over your seasons, split by the role the money paid for. Tap a team to open its flows.</p>
+    </div>
+    <div class="bg-card bg-chart" data-draw="team-bars" data-source="team_totals" style="min-height: 400px"></div>
+  </section>
+
+  <section class="bg-section bg-only-qbs" id="contracts">
+    <div>
+      <h2>Contracts by cost</h2>
+      <p class="bg-sub">Every contract signed in your seasons, ranked by the measure you pick. "<span data-capyear>2026</span> cap dollars" scales a deal by how much the salary cap has grown since it was signed. Effective APY is what was actually paid per year on the deal.</p>
+    </div>
+    <label class="bg-field" style="max-width: 320px"><span>Rank contracts by</span>
+      <select class="dash-select" id="csort">
+        <option value="inflated_apy" data-captext="APY in {y} cap dollars">APY in 2026 cap dollars</option>
+        <option value="apy_pct_of_cap">APY as % of cap at signing</option>
+        <option value="apy">APY (nominal)</option>
+        <option value="inflated_total" data-captext="Total value in {y} cap dollars">Total value in 2026 cap dollars</option>
+        <option value="inflated_guarantees" data-captext="Guarantees in {y} cap dollars">Guarantees in 2026 cap dollars</option>
+        <option value="effective_apy">Effective APY (actually paid)</option>
+        <option value="amount_earned">Amount actually earned</option>
+      </select>
+    </label>
+    <div class="bg-card bg-tablewrap">
+      <table class="bg-table" data-source="contracts" data-row-key="contract_id">
+        <thead><tr>
+          <th class="bg-rank">#</th>
+          <th data-field="player">Quarterback</th>
+          <th data-field="year_signed" class="num bg-hide-sm">Signed</th>
+          <th data-field="apy" class="num bg-hide-sm">APY</th>
+          <th data-field="apy_pct_of_cap" class="num">% cap</th>
+          <th data-field="inflated_apy" class="num"><span data-capyear>2026</span> $ APY</th>
+          <th data-field="pct_earned" class="num bg-hide-sm">% earned</th>
+        </tr></thead>
+        <tbody data-draw="ctable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <details class="bg-notes" id="notes">
+    <summary>How the numbers are counted</summary>
+    <ul>
+      <li>Each season counts under the latest contract the quarterback signed on or before that season, other than practice-squad deals. Drafted and undrafted-free-agent deals are rookie deals. An extension therefore counts from the year it was signed, including any seasons left on the rookie deal.</li>
+      <li>Cash paid is the season's cash from Over The Cap plus cash paid out as dead money after a release or trade. Cap cost is the season's cap hit plus dead cap charged to the team.</li>
+      <li><span data-capyear>2026</span> cap dollars multiply each year's money by how much the salary cap has grown since then, using Over The Cap's own inflation factors.</li>
+      <li>Share of team cap adds up each season's cap hit as a percentage of the cap, so three seasons at 10% count as 30%.</li>
+      <li>Production comes from nflverse and starts in 1999. A paid season with no stats counts as zero production. EPA (expected points added) adds passing and rushing EPA.</li>
+      <li>Wins and losses are the quarterback's record as the starter. nflverse credits a game to the quarterback who took most of the snaps, so a starter pulled early in a rest game loses that start. Regular-season and playoff wins are counted separately; "Games counted" picks which one wins, WPA and turnovers use. Other production stats are regular season only.</li>
+      <li>WPA (win probability added) sums how much each of a quarterback's dropbacks and designed runs changed his team's chance of winning, from nflverse's win-probability model. Turnovers are interceptions plus fumbles lost. For turnovers, more money per turnover is better, so the biggest bag getters are the ones paid least per turnover.</li>
+      <li>"Seasons as primary starter" counts seasons in your range where the quarterback made the most starts for his team. The Super Bowl filter also looks only at your range of seasons. Both narrow every ranking, list and chart in the quarterback view.</li>
+      <li>On the team page, "How he arrived" is decided at the start of each stint with a team: drafted or rookie deal here, signed as a free agent (including waiver claims), or traded for (the contract before his first one with the team ended in a trade). Dead cap is split by how the contract ended: traded away, or released, retired or void years accelerating.</li>
+      <li>Team page roles: the primary starter made the most starts for that team that season, a spot starter made at least one, a backup played without starting, and "didn't play" appeared in no games. Dead cap is money charged for a quarterback no longer on that deal. A season's pay sits with the team Over The Cap lists for that season, so a mid-season trade counts under one team.</li>
+      <li>Quarterbacks without a season-by-season pay history on Over The Cap (mostly short-stint backups) are not ranked. <span data-inprogress>The <span data-capyear>2026</span> season is in progress, so its full-year pay sits beside a partial season of stats.</span></li>
+    </ul>
+  </details>
+</div>
+</main>
+<footer class="site-footer">
+  Contracts from <a href="https://overthecap.com">Over The Cap</a> · stats from <a href="https://github.com/nflverse">nflverse</a> ·
+  <a href="https://github.com/teinsidler/nfl-bag-getters">source on GitHub</a>
+</footer>
+</body>
+</html>

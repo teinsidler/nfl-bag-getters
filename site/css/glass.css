@@ -1,0 +1,338 @@
+/* Dashboard styles: Liquid Glass look, layout and charts. */
+  .bg [hidden], .bg[hidden] { display: none !important; }
+
+  /* ---- glass tokens (light). Opaque base values first; translucent values gated on color-mix support below. ---- */
+  .bg {
+    --bg-accent: var(--cds-chart-status-critical, var(--color-bad));
+    --glass-radius: calc(var(--cds-radius, 8px) * 2);
+    --glass-radius-sm: calc(var(--cds-radius, 8px) + 4px);
+    --glass-fill: var(--color-panel);
+    --glass-fill-strong: var(--color-panel);
+    --glass-fill-soft: var(--color-panel);
+    --glass-hover: var(--color-bg);
+    --glass-border: var(--color-border-line);
+    --glass-edge: rgba(255, 255, 255, .85);
+    --seg-inset: inset 0 1px 2px rgba(24, 24, 48, .06);
+    --glass-filter: blur(18px) saturate(185%);
+    --glass-shadow: 0 1px 2px rgba(24, 24, 48, .05), 0 6px 18px -6px rgba(24, 24, 48, .10), 0 22px 44px -22px rgba(24, 24, 48, .16);
+    /* Liquid Glass material: specular rim (top-left bright, bottom-right soft), inner gloss, inner glow */
+    --glass-rim: linear-gradient(135deg, rgba(255, 255, 255, .95) 0%, rgba(255, 255, 255, .35) 22%, rgba(255, 255, 255, 0) 48%, rgba(255, 255, 255, .12) 72%, rgba(255, 255, 255, .7) 100%);
+    --glass-gloss: linear-gradient(180deg, rgba(255, 255, 255, .42) 0%, rgba(255, 255, 255, .08) 38%, rgba(255, 255, 255, 0) 60%);
+    --glass-inset: inset 0 1px 0 var(--glass-edge), inset 1px 0 0 rgba(255, 255, 255, .45), inset 0 -1px 0 rgba(24, 24, 48, .04), inset 0 0 14px rgba(255, 255, 255, .28);
+    --glass-lift: 0 1px 1px rgba(24, 24, 48, .06), 0 4px 12px -4px rgba(24, 24, 48, .14);
+    --seg-track: rgba(24, 24, 48, .045);
+    --seg-thumb: var(--color-panel);
+    --seg-thumb-fg: var(--color-fg);
+    --seg-thumb-shadow: 0 1px 1px rgba(24, 24, 48, .08), 0 3px 10px -2px rgba(24, 24, 48, .18), inset 0 1px 0 rgba(255, 255, 255, .95), inset 0 -1px 0 rgba(24, 24, 48, .05);
+    --aurora-1: transparent; --aurora-2: transparent; --aurora-3: transparent; --aurora-4: transparent; --aurora-hi: transparent;
+    display: flex; flex-direction: column; gap: var(--cds-gap-xl); font-variant-numeric: tabular-nums;
+    color: var(--color-fg);
+    background-color: var(--color-bg);
+    /* calm gradient field for the glass to pick up; each colour blob peaks low (light budget for muted text ≥4.5:1) */
+    background-image:
+      radial-gradient(380px 220px at 72% 120px, var(--aurora-hi), transparent 70%),
+      radial-gradient(560px 300px at 8% 330px, var(--aurora-1), transparent 70%),
+      radial-gradient(460px 280px at 62% 520px, var(--aurora-4), transparent 70%),
+      radial-gradient(520px 300px at 94% 820px, var(--aurora-2), transparent 70%),
+      radial-gradient(640px 320px at 30% 1150px, var(--aurora-3), transparent 70%);
+    background-size: 100% 1400px; background-repeat: repeat-y;
+    border-radius: calc(var(--glass-radius) + 6px);
+    padding: clamp(12px, 2.4vw, 28px);
+  }
+  @supports (color: color-mix(in srgb, red 50%, blue)) {
+    .bg {
+      --glass-fill: color-mix(in srgb, var(--color-panel) 64%, transparent);
+      --glass-fill-strong: color-mix(in srgb, var(--color-panel) 88%, transparent);
+      --glass-fill-soft: color-mix(in srgb, var(--color-panel) 46%, transparent);
+      --glass-hover: color-mix(in srgb, var(--color-fg) 5%, transparent);
+      --glass-border: color-mix(in srgb, var(--color-border-line) 80%, transparent);
+      --aurora-1: color-mix(in srgb, var(--bg-accent) 6%, transparent);
+      --aurora-2: color-mix(in srgb, var(--color-ok) 7%, transparent);
+      --aurora-3: color-mix(in srgb, #4a6cd4 7%, transparent);
+      --aurora-4: color-mix(in srgb, #8a6fd0 6%, transparent);
+      --aurora-hi: rgba(255, 255, 255, .7);
+    }
+  }
+  /* dark: retune highlight, rim, gloss, shadow and aurora strength; fills follow the framework's own dark tokens.
+     (--glass-filter stays out of these blocks so the phone's lighter blur still wins.) */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .bg {
+      --glass-edge: rgba(255, 255, 255, .14);
+      --seg-inset: inset 0 1px 2px rgba(0, 0, 0, .35);
+      --glass-shadow: 0 1px 2px rgba(0, 0, 0, .30), 0 8px 22px -8px rgba(0, 0, 0, .45), 0 24px 48px -24px rgba(0, 0, 0, .55);
+      --glass-rim: linear-gradient(135deg, rgba(255, 255, 255, .34) 0%, rgba(255, 255, 255, .10) 24%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, .04) 72%, rgba(255, 255, 255, .18) 100%);
+      --glass-gloss: linear-gradient(180deg, rgba(255, 255, 255, .06) 0%, rgba(255, 255, 255, .015) 40%, rgba(255, 255, 255, 0) 60%);
+      --glass-inset: inset 0 1px 0 var(--glass-edge), inset 1px 0 0 rgba(255, 255, 255, .05), inset 0 -1px 0 rgba(0, 0, 0, .25), inset 0 0 16px rgba(255, 255, 255, .03);
+      --glass-lift: 0 1px 1px rgba(0, 0, 0, .3), 0 4px 12px -4px rgba(0, 0, 0, .5);
+      --seg-track: rgba(255, 255, 255, .06);
+      --seg-thumb-shadow: 0 1px 1px rgba(0, 0, 0, .35), 0 3px 10px -2px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .22), inset 0 -1px 0 rgba(0, 0, 0, .2);
+    }
+    @supports (color: color-mix(in srgb, red 50%, blue)) {
+      :root:not([data-theme="light"]) .bg {
+        --glass-fill: color-mix(in srgb, var(--color-panel) 58%, transparent);
+        --glass-hover: color-mix(in srgb, var(--color-fg) 7%, transparent);
+        --aurora-1: color-mix(in srgb, var(--bg-accent) 14%, transparent);
+        --aurora-2: color-mix(in srgb, var(--color-ok) 13%, transparent);
+        --aurora-3: color-mix(in srgb, #4a6cd4 17%, transparent);
+        --aurora-4: color-mix(in srgb, #8a6fd0 12%, transparent);
+        --aurora-hi: rgba(255, 255, 255, .025);
+        --seg-thumb: color-mix(in srgb, var(--color-fg) 20%, var(--color-panel));
+      }
+    }
+  }
+  :root[data-theme="dark"] .bg {
+    --glass-edge: rgba(255, 255, 255, .14);
+    --seg-inset: inset 0 1px 2px rgba(0, 0, 0, .35);
+    --glass-shadow: 0 1px 2px rgba(0, 0, 0, .30), 0 8px 22px -8px rgba(0, 0, 0, .45), 0 24px 48px -24px rgba(0, 0, 0, .55);
+    --glass-rim: linear-gradient(135deg, rgba(255, 255, 255, .34) 0%, rgba(255, 255, 255, .10) 24%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, .04) 72%, rgba(255, 255, 255, .18) 100%);
+    --glass-gloss: linear-gradient(180deg, rgba(255, 255, 255, .06) 0%, rgba(255, 255, 255, .015) 40%, rgba(255, 255, 255, 0) 60%);
+    --glass-inset: inset 0 1px 0 var(--glass-edge), inset 1px 0 0 rgba(255, 255, 255, .05), inset 0 -1px 0 rgba(0, 0, 0, .25), inset 0 0 16px rgba(255, 255, 255, .03);
+    --glass-lift: 0 1px 1px rgba(0, 0, 0, .3), 0 4px 12px -4px rgba(0, 0, 0, .5);
+    --seg-track: rgba(255, 255, 255, .06);
+    --seg-thumb-shadow: 0 1px 1px rgba(0, 0, 0, .35), 0 3px 10px -2px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .22), inset 0 -1px 0 rgba(0, 0, 0, .2);
+  }
+  @supports (color: color-mix(in srgb, red 50%, blue)) {
+    :root[data-theme="dark"] .bg {
+      --glass-fill: color-mix(in srgb, var(--color-panel) 58%, transparent);
+      --glass-hover: color-mix(in srgb, var(--color-fg) 7%, transparent);
+      --aurora-1: color-mix(in srgb, var(--bg-accent) 14%, transparent);
+      --aurora-2: color-mix(in srgb, var(--color-ok) 13%, transparent);
+      --aurora-3: color-mix(in srgb, #4a6cd4 17%, transparent);
+      --aurora-4: color-mix(in srgb, #8a6fd0 12%, transparent);
+      --aurora-hi: rgba(255, 255, 255, .025);
+      --seg-thumb: color-mix(in srgb, var(--color-fg) 20%, var(--color-panel));
+    }
+  }
+
+  .bg h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+  .bg h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; text-wrap: balance; }
+  .bg-lede { margin: var(--cds-gap-sm) 0 0; max-width: 68ch; color: var(--color-fg); line-height: 1.5; }
+  .bg-sub { margin: var(--cds-gap-xs) 0 0; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); max-width: 72ch; line-height: 1.45; }
+  .bg-section { display: flex; flex-direction: column; gap: var(--cds-gap-md); min-width: 0; }
+
+  /* liquid-glass panel: translucent fill + saturated blur, inner top gloss under the content,
+     layered inset highlights and a specular gradient rim (::after, below) */
+  .bg-card {
+    position: relative;
+    background-color: var(--glass-fill);
+    background-image: var(--glass-gloss);
+    -webkit-backdrop-filter: var(--glass-filter); backdrop-filter: var(--glass-filter);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--glass-radius);
+    box-shadow: var(--glass-inset), var(--glass-shadow);
+    padding: var(--cds-pad-lg); min-width: 0;
+  }
+  /* specular rim: a 1px gradient ring laid over the border, masked to the edge only. Scroll containers
+     (tables) keep just the inset highlights, since an absolute overlay would scroll away with the content. */
+  @supports (mask-composite: exclude) or (-webkit-mask-composite: xor) {
+    .bg-card:not(.bg-tablewrap)::after, .bg-section > .bg-seg::after, .bg-viewseg::after, .bg-tip::after {
+      content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+      padding: 1px; background: var(--glass-rim);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+      mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    }
+  }
+
+  .bg-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--cds-gap-md); align-items: end; }
+  .bg-field { display: flex; flex-direction: column; gap: var(--cds-gap-xs); min-width: 0; }
+  .bg-field > span { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); letter-spacing: .02em; }
+  .bg-field .dash-select { width: 100%; }
+  /* pill selects: only radius/colour/shadow are touched, the framework keeps padding and chevron */
+  .bg .dash-select { background-color: var(--glass-fill-soft); color: var(--color-fg); border-color: var(--glass-border); border-radius: 999px; padding-left: max(10px, .75em); padding-right: max(28px, 2.1em); box-shadow: var(--glass-inset), var(--glass-lift); transition: box-shadow .2s ease, border-color .2s ease; }
+  .bg .dash-select:hover { border-color: var(--color-fg-muted); }
+  .bg-years { display: flex; gap: var(--cds-gap-xs); align-items: center; }
+  .bg-years .dash-select { flex: 1; min-width: 6.25em; }
+
+  /* segmented control: capsule track (faint inset tint), pressed button is a raised glass lens */
+  .bg-seg { position: relative; display: flex; gap: 2px; padding: 3px; border: 1px solid var(--glass-border); border-radius: 999px; background-color: var(--glass-fill-soft); background-image: linear-gradient(var(--seg-track), var(--seg-track)); box-shadow: var(--seg-inset), inset 0 -1px 0 var(--glass-edge); }
+  .bg-section > .bg-seg, .bg-viewseg { background-color: var(--glass-fill); -webkit-backdrop-filter: var(--glass-filter); backdrop-filter: var(--glass-filter); box-shadow: var(--glass-inset), var(--glass-shadow); }
+  .bg-seg button { position: relative; flex: 1; font: inherit; font-size: var(--cds-font-size-caption); padding: 6px 6px; border: 0; border-radius: 999px; background: transparent; color: var(--color-fg); cursor: pointer; white-space: nowrap; min-width: 0; overflow: hidden; text-overflow: ellipsis; transition: background-color .2s ease, box-shadow .2s ease, color .2s ease; }
+  .bg-seg button:hover { background-color: var(--glass-hover); }
+  .bg-seg button[aria-pressed="true"] { background-color: var(--seg-thumb); background-image: var(--glass-gloss); color: var(--seg-thumb-fg); box-shadow: var(--seg-thumb-shadow); }
+  /* sliding glass pill: equal columns, a single thumb (::before) glides to the pressed option */
+  @supports selector(:has(*)) {
+    .bg-seg { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); --n: 1; --i: 0; }
+    .bg-seg:has(> button:nth-of-type(2)) { --n: 2; }
+    .bg-seg:has(> button:nth-of-type(3)) { --n: 3; }
+    .bg-seg:has(> button:nth-of-type(4)) { --n: 4; }
+    .bg-seg:has(> button:nth-of-type(2)[aria-pressed="true"]) { --i: 1; }
+    .bg-seg:has(> button:nth-of-type(3)[aria-pressed="true"]) { --i: 2; }
+    .bg-seg:has(> button:nth-of-type(4)[aria-pressed="true"]) { --i: 3; }
+    .bg-seg::before {
+      content: ""; position: absolute; z-index: 0; top: 3px; bottom: 3px; left: 3px;
+      width: calc((100% - 6px - (var(--n) - 1) * 2px) / var(--n));
+      transform: translateX(calc(var(--i) * (100% + 2px)));
+      border-radius: 999px; background-color: var(--seg-thumb); background-image: var(--glass-gloss); box-shadow: var(--seg-thumb-shadow);
+      transition: transform .5s cubic-bezier(.3, 1.35, .45, 1), width .3s ease;
+      pointer-events: none;
+    }
+    .bg-seg:not(:has(> button[aria-pressed="true"]))::before { opacity: 0; }
+    .bg-seg button { z-index: 1; }
+    .bg-seg button[aria-pressed="true"] { background-color: transparent; background-image: none; box-shadow: none; }
+    .bg-seg button[aria-pressed="true"]:hover { background-color: transparent; }
+  }
+  @keyframes bg-in-left { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+  @keyframes bg-in-right { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+  .bg-only-qbs:not([hidden]) { animation: bg-in-left .45s cubic-bezier(.2, .8, .2, 1) both; }
+  .bg-only-teams:not([hidden]) { animation: bg-in-right .45s cubic-bezier(.2, .8, .2, 1) both; }
+  .bg-seg button:focus-visible, .bg-row:focus-visible, .bg-link:focus-visible, .bg-close:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
+  .bg-controls-wide { grid-column: 1 / -1; }
+
+  .bg-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: var(--cds-gap-md); }
+  #summary.bg-tiles { grid-template-columns: 1.2fr 1.2fr 1fr .8fr; }
+  .bg-tile { display: flex; flex-direction: column; gap: var(--cds-gap-xs); }
+  .bg-tile-label { font-family: var(--dd-mono, ui-monospace, monospace); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; color: var(--color-fg-muted); }
+  .bg-qb-tiles .bg-tile-label { min-height: 2.4em; }
+  .bg-big { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: 1.9rem; line-height: 1.1; overflow-wrap: anywhere; }
+  .bg-tile-note { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+
+  .bg-tablewrap { overflow-x: auto; min-width: 0; }
+  .bg-table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-body); }
+  .bg-table th { text-align: left; font-weight: var(--cds-font-weight-medium); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); padding: 6px 8px; border-bottom: 1px solid var(--glass-border); white-space: nowrap; }
+  .bg-table td { padding: 7px 8px; border-bottom: 1px solid var(--glass-border); vertical-align: middle; }
+  .bg-table tbody tr:last-child td { border-bottom: 0; }
+  .bg-table .num { text-align: right; white-space: nowrap; }
+  .bg-table tbody tr.bg-row { cursor: pointer; transition: background-color .15s ease; }
+  .bg-table tbody tr.bg-row:hover { background: var(--glass-hover); }
+  .bg-rank { color: var(--color-fg-muted); width: 2ch; }
+  .bg-name { font-weight: var(--cds-font-weight-medium); }
+  .bg-meta { display: block; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); font-weight: 400; }
+  .bg-barcell { width: 28%; min-width: 70px; }
+  .bg-bar { height: 8px; border-radius: 2px; background: var(--bg-accent); }
+  .bg-bar.good { background: var(--color-fg-muted); opacity: .35; }
+  .bg-barcell { position: relative; }
+  .bg-rate-tick { position: absolute; top: 2px; bottom: 2px; width: 0; border-left: 1.5px dashed var(--color-fg-muted); }
+  .bg-chip { display: inline-block; font-size: 11px; line-height: 1; padding: 3px 7px; border-radius: 3px; border: 1px solid var(--glass-border); background-color: var(--glass-fill-soft); color: var(--color-fg-muted); white-space: nowrap; }
+  .bg-chip.rookie { color: var(--color-ok); border-color: currentColor; }
+  .bg-chip.veteran { color: var(--color-fg); }
+  .bg-chip.unknown { color: var(--color-warn); border-color: currentColor; }
+  @media (max-width: 560px) {
+    .bg { padding-inline: 0; border-radius: 0;
+      background-image:
+        radial-gradient(200px 300px at 50% 330px, var(--aurora-1), transparent 70%),
+        radial-gradient(180px 260px at 80% 540px, var(--aurora-4), transparent 70%),
+        radial-gradient(200px 300px at 50% 760px, var(--aurora-2), transparent 70%),
+        radial-gradient(200px 320px at 50% 1150px, var(--aurora-3), transparent 70%);
+      --glass-radius: calc(var(--cds-radius, 8px) + 6px); --glass-radius-sm: calc(var(--cds-radius, 8px) + 2px); --glass-filter: blur(10px) saturate(170%); }
+    .bg-tiles, #summary.bg-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } .bg-tiles .bg-big { font-size: 1.25rem; } .bg-hide-sm { display: none; } .bg-table td, .bg-table th { padding: 6px 5px; }
+    .bg-seg button { padding-inline: 4px; white-space: normal; line-height: 1.2; } /* equal columns; long labels wrap so the sliding pill stays aligned */
+  }
+  /* no backdrop-filter, or the viewer asked for less transparency: opaque panels, no blur.
+     Placed after the dark and mobile rules and matched to their specificity so it always wins. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    :root .bg, :root:not([data-theme="light"]) .bg, :root[data-theme="dark"] .bg {
+      --glass-fill: var(--color-panel); --glass-fill-strong: var(--color-panel); --glass-fill-soft: var(--color-panel); --glass-filter: none; }
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    :root .bg, :root:not([data-theme="light"]) .bg, :root[data-theme="dark"] .bg {
+      --glass-fill: var(--color-panel); --glass-fill-strong: var(--color-panel); --glass-fill-soft: var(--color-panel); --glass-filter: none;
+      --glass-gloss: none; --aurora-1: transparent; --aurora-2: transparent; --aurora-3: transparent; --aurora-4: transparent; --aurora-hi: transparent; }
+  }
+
+  .bg-chart { position: relative; min-height: 0; }
+  .bg-chart svg { display: block; width: 100%; overflow: visible; }
+  .bg-chart .axis text, .bg-mini .axis text { fill: var(--cds-text-secondary, var(--color-fg-muted)); font-size: 11px; }
+  .bg-chart .axis path, .bg-chart .axis line, .bg-mini .axis path, .bg-mini .axis line { stroke: var(--cds-chart-axis, var(--color-border-line)); }
+  .bg-chart .grid line, .bg-mini .grid line { stroke: var(--cds-chart-grid, var(--color-border-line)); }
+  .bg-chart .lbl, .bg-mini .lbl { fill: var(--color-fg); font-size: 11px; }
+  .bg-tip {
+    position: absolute; pointer-events: none;
+    background-color: var(--glass-fill-strong);
+    -webkit-backdrop-filter: var(--glass-filter); backdrop-filter: var(--glass-filter);
+    border: 1px solid var(--glass-border);
+    background-image: var(--glass-gloss);
+    box-shadow: var(--glass-inset), var(--cds-shadow-popover, var(--glass-shadow));
+    border-radius: var(--glass-radius-sm); padding: 8px 11px; font-size: var(--cds-font-size-caption); line-height: 1.4; max-width: 240px; z-index: 5; color: var(--color-fg);
+  }
+  .bg-tip b { display: block; font-size: var(--cds-font-size-body); }
+  .bg-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .bg-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+  .bg-legend .sw-bag { background: var(--bg-accent); }
+  .bg-legend .sw-val { background: var(--color-fg-muted); opacity: .35; }
+  .bg-legend .sw-line { width: 18px; height: 0; border-top: 2px dashed var(--color-fg-muted); border-radius: 0; }
+
+  .bg-split { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--cds-gap-lg); }
+  @media (max-width: 820px) { .bg-split { grid-template-columns: minmax(0, 1fr); } }
+  .bg-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .bg-list li { display: flex; justify-content: space-between; gap: var(--cds-gap-md); padding: 7px 0; border-bottom: 1px solid var(--glass-border); }
+  .bg-list li:last-child { border-bottom: 0; }
+  .bg-list li > :first-child { min-width: 0; }
+  /* ---- QB name links: ink name, mid-tone underline, muted chevron; all visible at rest (touch) ---- */
+  .bg { --bg-link-line: var(--color-fg-muted); }
+  @supports (color: color-mix(in srgb, red 50%, blue)) { .bg { --bg-link-line: color-mix(in srgb, var(--color-fg) 50%, transparent); } }
+  .bg-link { all: unset; cursor: pointer; }
+  .bg-link:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; border-radius: 2px; }
+  .bg-qblink { color: var(--color-fg); font-weight: var(--cds-font-weight-medium); cursor: pointer; text-decoration: underline; text-decoration-color: var(--bg-link-line); text-decoration-thickness: 1.5px; text-underline-offset: 3px; text-decoration-skip-ink: auto; }
+  .bg-qblink::after { content: "›"; display: inline-block; margin-left: .3em; color: var(--color-fg-muted); text-decoration: none; font-weight: 400; transition: transform .15s ease; }
+  .bg-qblink:hover, .bg-link:focus-visible .bg-qblink, .bg-qblink:focus-visible, .bg-row:hover .bg-qblink, .bg-row:focus-visible .bg-qblink { text-decoration-color: var(--color-fg); text-decoration-thickness: 2px; }
+  .bg-qblink:hover::after, .bg-link:focus-visible .bg-qblink::after, .bg-row:hover .bg-qblink::after, .bg-row:focus-visible .bg-qblink::after { transform: translateX(2px); color: var(--color-fg); }
+  .bg-link:active .bg-qblink, .bg-row:active .bg-qblink { opacity: .7; }
+  .bg-big .bg-qblink { font-weight: inherit; text-underline-offset: 5px; text-decoration-thickness: 2px; }
+  /* SVG: underline lives on the name tspan so it doesn't run under the chevron */
+  .bg .bg-qblink-svg { cursor: pointer; }
+  .bg .bg-qblink-svg .bg-nm { text-decoration: underline; text-decoration-color: var(--bg-link-line); text-underline-offset: 2px; }
+  .bg .bg-qblink-svg .bg-chev { fill: var(--color-fg-muted); }
+  .bg .bg-qblink-svg:hover .bg-nm, .bg g.bg-qrow:hover > .bg-qblink-svg .bg-nm, .bg .bg-qblink-svg:focus-visible .bg-nm { text-decoration-color: var(--color-fg); }
+  .bg .bg-qblink-svg:hover .bg-chev, .bg g.bg-qrow:hover > .bg-qblink-svg .bg-chev, .bg .bg-qblink-svg:focus-visible .bg-chev { fill: var(--color-fg); }
+  .bg .bg-qblink-svg:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
+  .bg-chart circle:hover { stroke: var(--color-fg) !important; stroke-width: 2px !important; } /* dots set stroke inline */
+  .bg-empty { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); padding: var(--cds-pad-md) 0; }
+
+  .bg-qb { background-color: var(--glass-fill-strong); }
+  @supports (color: color-mix(in srgb, red 50%, blue)) { .bg-qb { border-color: color-mix(in srgb, var(--color-fg) 32%, transparent); } }
+  @supports not (color: color-mix(in srgb, red 50%, blue)) { .bg-qb { border-color: var(--color-fg); } }
+  .bg-qb-head { display: flex; justify-content: space-between; gap: var(--cds-gap-md); align-items: start; flex-wrap: wrap; }
+  .bg-close { font: inherit; font-size: var(--cds-font-size-caption); border: 1px solid var(--glass-border); background-color: var(--seg-thumb); background-image: var(--glass-gloss); color: var(--color-fg); border-radius: 999px; padding: 6px 16px; cursor: pointer; box-shadow: var(--seg-thumb-shadow); transition: background-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+  .bg-close:hover { background-color: var(--glass-fill-strong); box-shadow: var(--seg-thumb-shadow), var(--glass-lift); transform: translateY(-1px); }
+  .bg-close:active { transform: none; }
+  .bg-qb-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--cds-gap-md); }
+  .bg-qb-tiles .bg-tile { padding: 10px 12px; border-radius: var(--glass-radius-sm); border: 1px solid var(--glass-border); background-color: var(--glass-fill-soft); background-image: var(--glass-gloss); box-shadow: var(--glass-inset); }
+  .bg-qb-tiles .bg-big { font-size: 1.4rem; }
+  .bg-mini { position: relative; min-height: 180px; }
+  details.bg-notes { padding: var(--cds-pad-md) var(--cds-pad-lg); border: 1px solid var(--glass-border); border-radius: var(--glass-radius); background-color: var(--glass-fill-soft); background-image: var(--glass-gloss); box-shadow: var(--glass-inset); }
+  details.bg-notes summary { cursor: pointer; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  details.bg-notes ul { margin: var(--cds-gap-sm) 0 0; padding-left: 1.2em; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); line-height: 1.5; max-width: 80ch; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg-seg button, .bg-table tbody tr.bg-row, .bg-close, .bg-qblink::after, .bg .dash-select, .bg-seg::before { transition: none; }
+    .bg-only-qbs, .bg-only-teams { animation: none !important; }
+    .bg-close:hover { transform: none; }
+  }
+  /* ---- team page: Sankey flows (diagram-design conventions: 3 columns, ink node bars, filled ribbons,
+     mono eyebrows/sublabels, series palette for categories, accent reserved for dead cap) ---- */
+  .bg {
+    --dd-starter: #5e7a9b; --dd-spot: #7c8f6f; --dd-backup: #b8915a; --dd-inactive: #6e6479; --dd-unknown: #8a8f98;
+    --dd-dead: #bf4520; --dd-dead2: #8a3a22; --dd-rookie: #7c8f6f; --dd-veteran: #5e7a9b; --dd-nodeal: #6e6479;
+    --dd-home: #7c8f6f; --dd-signed: #5e7a9b; --dd-tradedfor: #b8915a;
+    --dd-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .bg { --dd-starter: #82a0c0; --dd-spot: #9caf8f; --dd-backup: #d3ad7a; --dd-inactive: #8d8298; --dd-unknown: #a3a8b0; --dd-dead: #f08a59; --dd-dead2: #c4673f; --dd-rookie: #9caf8f; --dd-veteran: #82a0c0; --dd-nodeal: #8d8298; --dd-home: #9caf8f; --dd-signed: #82a0c0; --dd-tradedfor: #d3ad7a; }
+  }
+  :root[data-theme="dark"] .bg { --dd-starter: #82a0c0; --dd-spot: #9caf8f; --dd-backup: #d3ad7a; --dd-inactive: #8d8298; --dd-unknown: #a3a8b0; --dd-dead: #f08a59; --dd-dead2: #c4673f; --dd-rookie: #9caf8f; --dd-veteran: #82a0c0; --dd-nodeal: #8d8298; --dd-home: #9caf8f; --dd-signed: #82a0c0; --dd-tradedfor: #d3ad7a; }
+  .bg-viewseg { max-width: 360px; }
+  .bg-hint { display: block; margin-top: 4px; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .bg-team-head { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 360px); gap: var(--cds-gap-md); align-items: end; }
+  .bg-sankey { min-height: 300px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+  .bg-sankey .dd-eyebrow { font-family: var(--dd-mono); font-size: 8px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; fill: var(--color-fg-muted); }
+  .bg-sankey .dd-name { font-size: 12px; font-weight: 600; fill: var(--color-fg); }
+  .bg-sankey .dd-qty { font-family: var(--dd-mono); font-size: 9px; fill: var(--color-fg-muted); }
+  .bg-sankey .dd-node { fill: var(--color-fg); }
+  .bg-sankey .dd-flow { fill-opacity: .3; transition: fill-opacity .15s ease; cursor: pointer; }
+  .bg-sankey .dd-flow.dd-accent { fill-opacity: .42; }
+  .bg-sankey .dd-name, .bg-sankey .dd-qty { paint-order: stroke; stroke: var(--color-panel); stroke-width: 3px; stroke-linejoin: round; }
+  @supports (color: color-mix(in srgb, red 50%, blue)) { .bg-sankey .dd-name, .bg-sankey .dd-qty { stroke: color-mix(in srgb, var(--color-panel) 80%, transparent); } }
+  .bg-sankey.dd-focus .dd-flow { fill-opacity: .1; }
+  .bg-sankey.dd-focus .dd-flow.on { fill-opacity: .78; }
+  .bg-sankey .dd-hit { cursor: pointer; }
+  .bg-legend i.sw-flow { width: 16px; height: 8px; border-radius: 1px; }
+  .bg-aside { font-family: var(--font-anthropic-serif, Georgia, serif); font-style: italic; font-size: 14px; margin: 0; color: var(--color-fg); }
+  .bg-sankey-card .bg-legend { border-top: 1px solid var(--glass-border); padding-top: var(--cds-gap-sm); }
+  .bg-sankey-card { display: flex; flex-direction: column; gap: var(--cds-gap-md); }
+  .bg-tbar .sel text { font-weight: 700; }
+  .bg-tbar g.row { cursor: pointer; }
+  .bg-tbar rect.hit { fill: transparent; }
+  .bg-tbar g.row.sel rect.hit, .bg-tbar g.row:hover rect.hit { fill: var(--glass-hover, rgba(0,0,0,.04)); }
+  .bg-show-sm { display: none; }
+  @media (max-width: 560px) { .bg-team-head { grid-template-columns: 1fr; } .bg-show-sm { display: block; margin: 0; } }
+  @media (prefers-reduced-motion: reduce) { .bg-sankey .dd-flow { transition: none; } }

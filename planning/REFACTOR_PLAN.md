@@ -52,7 +52,7 @@ All paths relative (the site lives under `/nfl-bag-getters/`). Data is fetched f
 `window.__errors` empty and no requests outside the origin, and the default-view tiles and
 tables match `dashboard/qb_bag_getters.html`.
 
-**1.2 Smoke test.** `tests/smoke.spec.py` (Playwright, Chromium): load the page, assert no
+**1.2 Smoke test.** `tests/test_site_smoke.py` (Playwright, Chromium): load the page, assert no
 page errors and an empty `window.__errors` (the runtime swallows draw errors), leaderboard
 has rows, switch to Teams and check Sankey nodes, open one QB.
 *Done when* it passes locally and fails if a JSON file is deleted.
