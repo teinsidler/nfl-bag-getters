@@ -40,6 +40,11 @@ def browser():
         b.close()
 
 
+CSP_WATCH = """window.__csp = [];
+document.addEventListener('securitypolicyviolation',
+  e => window.__csp.push(e.violatedDirective + ' ' + e.blockedURI));"""
+
+
 @pytest.fixture(scope="module")
 def page(base_url, browser):
     pg = browser.new_page(viewport={"width": 1200, "height": 900})
@@ -50,9 +55,10 @@ def page(base_url, browser):
     outside = []
     pg.on("request", lambda r: None if r.url.startswith(base_url) else outside.append(r.url))
     pg.outside = outside
+    pg.add_init_script(CSP_WATCH)
     pg.goto(base_url)
-    pg.wait_for_function("document.querySelector('[data-draw=\"lede\"]').textContent.includes('biggest bag')",
-                         timeout=20000)
+    # locator waits, not wait_for_function: polling a JS string needs eval, which the page's CSP blocks
+    pg.locator('[data-draw="lede"]', has_text="biggest bag").wait_for(timeout=20000)
     yield pg
     pg.close()
 
@@ -61,6 +67,7 @@ def assert_clean(page):
     errors = page.evaluate("window.__errors")
     assert errors == [], errors
     assert page.problems == [], page.problems
+    assert page.evaluate("window.__csp") == [], "Content-Security-Policy violations"
 
 
 def test_quarterbacks_view(page):
@@ -75,7 +82,7 @@ def test_quarterbacks_view(page):
 
 def test_quarterback_page(page):
     page.locator('[data-draw="board"] tr').first.click()
-    page.wait_for_function("!document.getElementById('qb').hidden")
+    page.locator("#qb").wait_for(state="visible")
     assert page.locator('[data-draw="qb-name"]').inner_text().strip() not in ("", "—")
     assert page.locator('[data-draw="qb-seasons"] tr').count() >= 1
     assert_clean(page)
@@ -83,7 +90,7 @@ def test_quarterback_page(page):
 
 def test_teams_view(page):
     page.locator('[data-view="teams"]').click()
-    page.wait_for_function("document.querySelectorAll('[data-draw=\"sankey\"] rect').length > 5")
+    page.locator('[data-draw="sankey"] rect').nth(5).wait_for()
     assert "where the quarterback money went" in page.locator('[data-draw="team-title"]').inner_text()
     assert page.locator('[data-draw="team-table"] tr').count() >= 1
     assert_clean(page)
@@ -92,7 +99,7 @@ def test_teams_view(page):
 def test_phone_width(base_url, browser):
     pg = browser.new_page(viewport={"width": 375, "height": 812})
     pg.goto(base_url)
-    pg.wait_for_function("document.querySelector('[data-draw=\"board\"] tr')", timeout=20000)
+    pg.locator('[data-draw="board"] tr').first.wait_for(timeout=20000)
     overflow = pg.evaluate("document.documentElement.scrollWidth - window.innerWidth")
     errors = pg.evaluate("window.__errors")
     pg.close()

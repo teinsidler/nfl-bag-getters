@@ -26,6 +26,8 @@ def main(out: Path) -> None:
     def safe_js(js: str) -> str:
         return js.replace("</script", "<\\/script")
 
+    # the offline copy inlines everything, so the site's same-origin-only policy would block it
+    html, n_csp = re.subn(r'<meta http-equiv="Content-Security-Policy"[^>]*>\n?', "", html)
     html, n_css = re.subn(r'<link rel="stylesheet" href="([^"]+)">',
                           lambda m: f"<style>\n{asset(m.group(1))}</style>", html)
     # deferred scripts run after the page is parsed, in order: inline them at the end of <body> to match
@@ -37,7 +39,7 @@ def main(out: Path) -> None:
     body = f"<script>window.DASH_INLINE={blob};</script>\n"
     body += "".join(f"<script>\n{safe_js(asset(src))}\n</script>\n" for src in scripts)
     html = html.replace("</body>", body + "</body>", 1)
-    assert n_css == 2 and n_js == 6, (n_css, n_js)
+    assert n_csp == 1 and n_css == 2 and n_js == 6, (n_csp, n_css, n_js)
     out.write_text(html)
     print(f"Wrote {out} ({out.stat().st_size / 1e6:.1f} MB)")
 
